@@ -269,7 +269,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 .onboard-back:hover{color:var(--text);}
 .onboard-info{font-size:12px;color:var(--muted);}
 
-.app-body{flex:1;max-width:980px;margin:0 auto;padding:36px 28px 80px;width:100%;}
+.app-body{flex:1;max-width:1300px;margin:0 auto;padding:36px 28px 80px;width:100%;}
 @media(max-width:600px){.app-body{padding:24px 16px 60px;}}
 .page-title{font-size:clamp(20px,3.5vw,28px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px;}
 .page-sub{font-size:14px;color:var(--text2);margin-bottom:32px;font-weight:300;}
@@ -281,16 +281,72 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 .stat-card-val{font-size:28px;font-weight:900;line-height:1;margin-bottom:4px;}
 .stat-card-label{font-size:12px;color:var(--muted);}
 
-.adol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
-.adol-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;cursor:pointer;transition:all .18s;}
-.adol-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
-.adol-avatar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.adol-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex-shrink:0;}
-.adol-name{font-size:15px;font-weight:700;}
-.adol-meta{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.adol-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);}
-.adol-audits{font-size:11px;color:var(--muted);}
-.adol-date{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+/* ── KANBAN BOARD ───────────────────────────────── */
+.kanban-board{
+  display:flex;gap:14px;
+  overflow-x:auto;
+  padding-bottom:20px;
+  /* hide scrollbar but keep functionality */
+  scrollbar-width:thin;
+  scrollbar-color:var(--border2) transparent;
+}
+.kanban-board::-webkit-scrollbar{height:5px;}
+.kanban-board::-webkit-scrollbar-track{background:transparent;}
+.kanban-board::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+.kanban-col{
+  flex:0 0 230px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.kanban-col-header{
+  border-radius:12px 12px 0 0;
+  padding:13px 16px 11px;
+  border:1px solid;
+  border-bottom:none;
+  position:sticky;top:0;z-index:2;
+  backdrop-filter:blur(10px);
+}
+.kanban-col-title{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+.kanban-col-kanji{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;line-height:1;margin-top:2px;}
+.kanban-col-count{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  background:rgba(255,255,255,.08);border-radius:10px;
+  padding:2px 8px;margin-top:6px;display:inline-block;
+}
+.kanban-col-body{
+  flex:1;display:flex;flex-direction:column;gap:8px;
+  border:1px solid;border-top:none;border-radius:0 0 12px 12px;
+  padding:10px;min-height:80px;
+}
+.kanban-empty-col{
+  text-align:center;padding:20px 10px;
+  font-size:11px;color:var(--muted);line-height:1.6;
+  border:1px dashed;border-radius:8px;margin:4px 0;
+}
+
+/* adol card (inside kanban) */
+.adol-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:10px;padding:14px;cursor:pointer;
+  transition:all .18s;position:relative;overflow:hidden;
+}
+.adol-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;border-radius:3px 0 0 3px;
+}
+.adol-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.35);}
+.adol-avatar-wrap{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.adol-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.adol-name{font-size:13px;font-weight:700;line-height:1.3;}
+.adol-meta{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:1px;}
+.adol-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--border);}
+.adol-audits{font-size:10px;color:var(--muted);}
+.adol-date{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.adol-s-badge{
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.07);
+  margin-top:6px;display:inline-block;
+}
 
 .empty-state{text-align:center;padding:64px 20px;background:var(--surface);border:1px dashed var(--border2);border-radius:16px;}
 .empty-icon{font-size:48px;margin-bottom:16px;}
@@ -356,6 +412,71 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 .hist-item{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:8px;flex-wrap:wrap;}
 .hist-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:90px;}
 .hist-s{font-family:'JetBrains Mono',monospace;font-size:12px;margin-left:auto;}
+
+/* ══════════════════════════════════════
+   SCREEN: EXTENSÃO
+══════════════════════════════════════ */
+.ext-hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:70px;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(168,85,247,.1) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(0,229,255,.07) 0%,transparent 50%);}
+.ext-hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+@media(max-width:800px){.ext-hero-content{grid-template-columns:1fr;text-align:center;}}
+.ext-mockup{position:relative;}
+.ext-window{background:#0D1117;border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;box-shadow:0 0 60px rgba(168,85,247,.15),0 24px 48px rgba(0,0,0,.5);}
+.ext-window-bar{background:#161B22;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);}
+.ext-dot{width:10px;height:10px;border-radius:50%;}
+.ext-url{flex:1;background:rgba(255,255,255,.04);border-radius:6px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.3);font-family:'JetBrains Mono',monospace;margin:0 8px;}
+.ext-card-preview{padding:20px;background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(0,229,255,.04));}
+.ext-card-inner{background:#0D1117;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.4);}
+.ext-card-top{height:2px;background:linear-gradient(90deg,#00E5FF,#A855F7,#F472B6);}
+.ext-card-body{padding:18px;}
+.ext-card-header{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.ext-card-logo{font-family:'Noto Serif JP',serif;font-size:16px;font-weight:700;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.ext-card-q{font-size:15px;font-weight:700;color:#F0F4FF;line-height:1.4;margin-bottom:12px;letter-spacing:-.01em;}
+.ext-card-input{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;font-size:12px;color:rgba(240,244,255,.4);font-style:italic;font-family:'Outfit',sans-serif;}
+.ext-card-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px;}
+.ext-card-btn{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;font-family:'Outfit',sans-serif;border:none;cursor:default;}
+.ext-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+@media(max-width:700px){.ext-steps{grid-template-columns:1fr;}}
+.ext-step{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;}
+.ext-step-num{width:36px;height:36px;border-radius:50%;background:var(--grad1);color:#080B14;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.ext-step-icon{font-size:28px;margin-bottom:10px;}
+.ext-step-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.ext-step-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+.ext-download-box{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:40px;text-align:center;margin-top:64px;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(168,85,247,.06) 0%,transparent 60%);}
+
+/* ══════════════════════════════════════
+   SCREEN: CONTEÚDO
+══════════════════════════════════════ */
+.conteudo-hero{padding:96px 0 64px;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,229,255,.07) 0%,transparent 60%);text-align:center;}
+.conteudo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:48px;}
+@media(max-width:700px){.conteudo-grid{grid-template-columns:1fr;}}
+.tema-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;cursor:pointer;transition:all .2s;text-align:left;position:relative;overflow:hidden;}
+.tema-card:hover{transform:translateY(-4px);border-color:var(--border2);}
+.tema-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:20px 20px 0 0;}
+.tc-alucinacao::before{background:linear-gradient(90deg,var(--red),var(--amber));}
+.tc-autoria::before{background:linear-gradient(90deg,var(--violet),var(--pink));}
+.tc-privacidade::before{background:linear-gradient(90deg,var(--cyan),var(--green));}
+.tc-processo::before{background:linear-gradient(90deg,var(--amber),var(--cyan));}
+.tema-icon{font-size:36px;margin-bottom:16px;}
+.tema-title{font-size:20px;font-weight:800;margin-bottom:8px;letter-spacing:-.02em;}
+.tema-desc{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:20px;}
+.tema-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.artigo-wrap{max-width:680px;margin:0 auto;padding:48px 28px 80px;}
+@media(max-width:600px){.artigo-wrap{padding:32px 16px 60px;}}
+.artigo-back{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer;margin-bottom:32px;background:none;border:none;font-family:'Outfit',sans-serif;transition:color .2s;}
+.artigo-back:hover{color:var(--text);}
+.artigo-title{font-size:clamp(24px,4vw,38px);font-weight:900;line-height:1.15;letter-spacing:-.03em;margin-bottom:16px;}
+.artigo-lead{font-size:17px;color:var(--text2);line-height:1.8;margin-bottom:40px;font-weight:300;}
+.artigo-body{font-size:15px;color:var(--text2);line-height:1.85;}
+.artigo-body h3{font-size:18px;font-weight:800;color:var(--text);margin:36px 0 12px;letter-spacing:-.02em;}
+.artigo-body p{margin-bottom:18px;}
+.artigo-body strong{color:var(--text);font-weight:600;}
+.artigo-callout{border-radius:12px;padding:20px 24px;margin:28px 0;border-left:3px solid;}
+.artigo-callout p{margin:0;font-size:14px;line-height:1.7;}
+.artigo-experimento{background:var(--surface2);border:1px solid var(--border2);border-radius:16px;padding:24px;margin:32px 0;}
+.artigo-exp-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.artigo-exp-title{font-size:16px;font-weight:700;margin-bottom:8px;}
+.artigo-exp-desc{font-size:13px;color:var(--text2);line-height:1.7;}
+.artigo-nav{display:flex;gap:12px;margin-top:48px;padding-top:32px;border-top:1px solid var(--border);flex-wrap:wrap;}
 </style>
 </head>
 <body>
@@ -372,9 +493,11 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
       <a href="#como-funciona">Como funciona</a>
       <a href="#beneficios">Benefícios</a>
       <a href="#faq">FAQ</a>
+      <a href="#" onclick="showScreen('screen-extensao');return false;" style="color:var(--violet)">Extensão</a>
+      <a href="#" onclick="showScreen('screen-conteudo');return false;" style="color:var(--cyan)">Para adolescentes</a>
     </div>
     <div class="nav-cta">
-      <button class="btn btn-outline btn-sm" onclick="goToApp()">Entrar</button>
+      <button class="btn btn-outline btn-sm" onclick="showScreen('screen-extensao')">⬇ Extensão</button>
       <button class="btn btn-grad btn-sm" onclick="startOnboarding()">Começar grátis</button>
     </div>
   </nav>
@@ -646,6 +769,210 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     <div id="tab-r-dims" class="tab-content"></div>
     <div id="tab-r-recom" class="tab-content"></div>
     <div id="tab-r-hist" class="tab-content"></div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN: EXTENSÃO ══════════════ -->
+<div id="screen-extensao" class="screen">
+  <nav class="nav">
+    <div class="logo" onclick="showLanding()">
+      <span class="logo-kanji">未来</span>
+      <span class="logo-text">Mirai</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" onclick="showLanding();return false;">Início</a>
+      <a href="#" onclick="showScreen('screen-conteudo');return false;" style="color:var(--cyan)">Para adolescentes</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost btn-sm" onclick="goToApp()">Painel</button>
+    </div>
+  </nav>
+
+  <div class="ext-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="ext-hero-content">
+      <div class="slide-up">
+        <div style="margin-bottom:20px"><span class="tag tag-violet">Extensão para Chrome</span></div>
+        <h1 class="hero-title">Uma pergunta.<br><span class="glow-violet">Depois de cada IA.</span></h1>
+        <p class="hero-sub">A extensão Mirai aparece automaticamente quando você termina de usar o ChatGPT, Gemini ou Claude. Uma pergunta curta. Só você vê a resposta. Nenhum dado sai do seu navegador.</p>
+        <div class="hero-actions">
+          <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
+          <button class="btn btn-outline" onclick="document.getElementById('ext-install').scrollIntoView({behavior:'smooth'})">Como instalar →</button>
+        </div>
+        <div style="margin-top:24px;font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap">
+          <span>✓ Grátis para sempre</span>
+          <span>✓ Sem coleta de dados</span>
+          <span>✓ Funciona offline</span>
+          <span>✓ Só você vê as respostas</span>
+        </div>
+      </div>
+
+      <!-- Mockup da extensão -->
+      <div class="ext-mockup">
+        <div class="ext-window">
+          <div class="ext-window-bar">
+            <div class="ext-dot" style="background:#FF5F57"></div>
+            <div class="ext-dot" style="background:#FEBC2E"></div>
+            <div class="ext-dot" style="background:#28C840"></div>
+            <div class="ext-url">claude.ai/chat</div>
+          </div>
+          <div class="ext-card-preview">
+            <div style="font-size:12px;color:rgba(255,255,255,.25);margin-bottom:12px;font-family:'JetBrains Mono',monospace">claude.ai em segundo plano...</div>
+            <div class="ext-card-inner">
+              <div class="ext-card-top"></div>
+              <div class="ext-card-body">
+                <div class="ext-card-header">
+                  <span class="ext-card-logo">未来</span>
+                  <span style="font-size:13px;font-weight:700;color:rgba(240,244,255,.4)">Mirai</span>
+                  <span style="margin-left:auto;font-size:13px;color:rgba(255,255,255,.2)">✕</span>
+                </div>
+                <div class="ext-card-q">Ela acertou desta vez?</div>
+                <div class="ext-card-input">escreva aqui — só você vê isso</div>
+                <div class="ext-card-actions">
+                  <div class="ext-card-btn" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)">pular</div>
+                  <div class="ext-card-btn" style="background:linear-gradient(135deg,#00E5FF,#A855F7);color:#080B14">responder →</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Como instalar -->
+  <section id="ext-install" class="section">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-violet">Instalação em 3 passos</span></div>
+      <h2 class="section-title">Pronto em<br><span class="glow-violet">menos de 2 minutos.</span></h2>
+      <p class="section-sub">Não precisa de conta, não precisa de cadastro. Baixa, instala, usa.</p>
+      <div class="ext-steps">
+        <div class="ext-step">
+          <div class="ext-step-num">1</div>
+          <div class="ext-step-icon">⬇</div>
+          <div class="ext-step-title">Baixe o arquivo</div>
+          <div class="ext-step-desc">Clique em "Baixar extensão" e salve o arquivo ZIP em qualquer pasta.</div>
+        </div>
+        <div class="ext-step">
+          <div class="ext-step-num">2</div>
+          <div class="ext-step-icon">📂</div>
+          <div class="ext-step-title">Instale no Chrome</div>
+          <div class="ext-step-desc">Extraia o ZIP. Abra <strong>chrome://extensions</strong>, ative o Modo Desenvolvedor e clique em "Carregar sem compactação". Selecione a pasta.</div>
+        </div>
+        <div class="ext-step">
+          <div class="ext-step-num">3</div>
+          <div class="ext-step-icon">✦</div>
+          <div class="ext-step-title">Use normalmente</div>
+          <div class="ext-step-desc">Abra ChatGPT, Gemini ou Claude. Use por 1 minuto. A pergunta aparece sozinha quando você para.</div>
+        </div>
+      </div>
+
+      <div class="ext-download-box">
+        <div style="font-family:'Noto Serif JP',serif;font-size:48px;margin-bottom:16px;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">未来</div>
+        <div class="cta-title" style="font-size:28px;font-weight:900;margin-bottom:12px">Começa quando você quiser.</div>
+        <div style="font-size:15px;color:var(--text2);margin-bottom:28px;line-height:1.7">Gratuito. Sem conta. Sem coleta de dados.<br>Só você e as suas perguntas.</div>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+          <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
+          <button class="btn btn-outline" onclick="showScreen('screen-conteudo')">Ver conteúdo →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="footer-left">未来 Mirai · Extensão Chrome MVP v0.1</div>
+    <div class="footer-right">Dados salvos localmente · Sem servidor</div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN: CONTEÚDO ══════════════ -->
+<div id="screen-conteudo" class="screen">
+  <nav class="nav">
+    <div class="logo" onclick="showLanding()">
+      <span class="logo-kanji">未来</span>
+      <span class="logo-text">Mirai</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" onclick="showLanding();return false;">Início</a>
+      <a href="#" onclick="showScreen('screen-extensao');return false;" style="color:var(--violet)">Extensão</a>
+    </div>
+    <div class="nav-cta">
+      <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-sm">⬇ Baixar extensão</a>
+    </div>
+  </nav>
+
+  <!-- Grade de temas ou artigo aberto -->
+  <div id="conteudo-index">
+    <div class="conteudo-hero">
+      <div class="max-w">
+        <div style="margin-bottom:20px"><span class="tag tag-cyan">Para quem usa IA</span></div>
+        <h1 class="section-title" style="font-size:clamp(28px,5vw,52px);font-weight:900;letter-spacing:-.03em">
+          A IA não sabe que<br><span class="glow-cyan">está errando.</span><br>Você sabe?
+        </h1>
+        <p style="font-size:17px;color:var(--text2);max-width:520px;margin:16px auto 0;line-height:1.75;font-weight:300">
+          Quatro temas que mudam como você usa qualquer IA.<br>Sem sermão. Sem regra. Só o que vale saber.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w" style="padding-bottom:80px">
+      <div class="conteudo-grid">
+
+        <div class="tema-card tc-alucinacao" onclick="abrirArtigo('alucinacao')">
+          <div class="tema-icon">🧠</div>
+          <div class="tema-title">A IA inventou.<br>E parecia verdade.</div>
+          <div class="tema-desc">A IA não mente com intenção. Ela simplesmente não sabe quando está errada. Entender isso muda tudo.</div>
+          <div class="tema-tags">
+            <span class="tag tag-red">Alucinação</span>
+            <span class="tag tag-amber">Verificação</span>
+          </div>
+        </div>
+
+        <div class="tema-card tc-autoria" onclick="abrirArtigo('autoria')">
+          <div class="tema-icon">✍️</div>
+          <div class="tema-title">Quem escreveu —<br>você ou ela?</div>
+          <div class="tema-desc">Usar IA para pensar junto é diferente de pedir o texto pronto. A diferença parece pequena. No longo prazo, é enorme.</div>
+          <div class="tema-tags">
+            <span class="tag tag-violet">Autoria</span>
+            <span class="tag tag-pink">Pensamento</span>
+          </div>
+        </div>
+
+        <div class="tema-card tc-privacidade" onclick="abrirArtigo('privacidade')">
+          <div class="tema-icon">🔒</div>
+          <div class="tema-title">O que você já<br>contou para a IA?</div>
+          <div class="tema-desc">Cada prompt é um dado. Nome, escola, endereço, segredos de amigos — tudo que você digita fica registrado em algum lugar.</div>
+          <div class="tema-tags">
+            <span class="tag tag-cyan">Privacidade</span>
+            <span class="tag tag-green">LGPD</span>
+          </div>
+        </div>
+
+        <div class="tema-card tc-processo" onclick="abrirArtigo('processo')">
+          <div class="tema-icon">🧭</div>
+          <div class="tema-title">Você foi buscar —<br>ou foi levado?</div>
+          <div class="tema-desc">Tem uma diferença entre usar a IA com intenção e abrir o chat por impulso. Reconhecer isso é o começo de usar bem.</div>
+          <div class="tema-tags">
+            <span class="tag tag-amber">Processo</span>
+            <span class="tag tag-cyan">Autonomia</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Artigo aberto -->
+  <div id="conteudo-artigo" style="display:none">
+    <div class="artigo-wrap" id="artigo-body"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">未来 Mirai · Conteúdo para adolescentes</div>
+    <div class="footer-right"><a href="mirai-extension-mvp.zip" download style="color:var(--cyan);text-decoration:none">⬇ baixar extensão</a></div>
   </div>
 </div>
 
@@ -1134,25 +1461,82 @@ function renderApp(){
     </div>`;return;
   }
 
+  // ── Kanban: agrupar por nível ──────────────────────────
   const gradients=['linear-gradient(135deg,var(--cyan),var(--violet))','linear-gradient(135deg,var(--violet),var(--pink))','linear-gradient(135deg,var(--green),var(--cyan))','linear-gradient(135deg,var(--amber),var(--pink))','linear-gradient(135deg,var(--pink),var(--violet))'];
-  list.innerHTML=`<div class="adol-grid fade-in">`+ST.adolescentes.map((a,i)=>{
+
+  // Configuração visual de cada coluna Kanban
+  const COL_CFG = {
+    1:{ color:'var(--red)',    border:'rgba(248,113,113,.3)',  hbg:'rgba(248,113,113,.08)',  kanji:'始',  kanjiLabel:'Início'    },
+    2:{ color:'var(--amber)',  border:'rgba(251,191,36,.3)',   hbg:'rgba(251,191,36,.08)',   kanji:'目',  kanjiLabel:'Despertar' },
+    3:{ color:'var(--violet)', border:'rgba(168,85,247,.3)',   hbg:'rgba(168,85,247,.08)',   kanji:'旅',  kanjiLabel:'Jornada'   },
+    4:{ color:'var(--cyan)',   border:'rgba(0,229,255,.3)',    hbg:'rgba(0,229,255,.08)',    kanji:'力',  kanjiLabel:'Domínio'   },
+    5:{ color:'var(--green)',  border:'rgba(52,211,153,.3)',   hbg:'rgba(52,211,153,.08)',   kanji:'完',  kanjiLabel:'Completude'},
+  };
+
+  // Separar adolescentes por nível
+  const buckets = {1:[],2:[],3:[],4:[],5:[]};
+  ST.adolescentes.forEach((a,i)=>{
     const last=a.auditorias&&a.auditorias.length?a.auditorias[a.auditorias.length-1]:null;
     const nv=last?last.nivel:a.nivel;
-    const li=LEVEL_INFO[nv];
-    const date=last?new Date(last.date).toLocaleDateString('pt-BR'):'Sem auditoria';
-    const ini=a.nome.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
-    return`<div class="adol-card" onclick="goToResult('${a.id}')">
-      <div class="adol-avatar-wrap">
-        <div class="adol-avatar" style="background:${gradients[i%5]};color:#080B14">${ini}</div>
-        <div><div class="adol-name">${a.nome}</div><div class="adol-meta">${a.idade} anos · ${VINCULOS[a.vinculo]||'—'}</div></div>
-      </div>
-      <span class="tag" style="background:${li.bg};color:${li.color};border:1px solid ${li.color}33">N${nv} — ${li.label}</span>
-      <div class="adol-footer">
-        <div class="adol-audits">${a.auditorias?a.auditorias.length:0} auditoria(s)</div>
-        <div class="adol-date">${date}</div>
+    buckets[nv].push({a, i, last, nv});
+  });
+
+  // Gerar colunas
+  const colsHtml = [1,2,3,4,5].map(nv=>{
+    const li   = LEVEL_INFO[nv];
+    const cfg  = COL_CFG[nv];
+    const items= buckets[nv];
+
+    const headerHtml=`
+      <div class="kanban-col-header" style="background:${cfg.hbg};border-color:${cfg.border}">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div class="kanban-col-title" style="color:${cfg.color}">Nível ${nv}</div>
+            <div class="kanban-col-kanji" style="color:${cfg.color}">${cfg.kanji} ${li.label.split('·')[0].trim()}</div>
+          </div>
+          <div class="kanban-col-count" style="color:${cfg.color}">${items.length}</div>
+        </div>
+      </div>`;
+
+    const cardsHtml = items.length===0
+      ? `<div class="kanban-empty-col" style="border-color:${cfg.border};color:${cfg.color};opacity:.4">
+           <div style="font-size:20px;margin-bottom:4px">${cfg.kanji}</div>
+           Nenhum aqui
+         </div>`
+      : items.map(({a,i,last,nv})=>{
+          const date=last?new Date(last.date).toLocaleDateString('pt-BR'):'Sem auditoria';
+          const ini=a.nome.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
+          const sVal=last?last.s:null;
+          const sColor=sVal===null?'var(--muted)':sVal>=60?'var(--green)':sVal>=30?'var(--amber)':'var(--red)';
+          return`<div class="adol-card fade-in" onclick="goToResult('${a.id}')"
+            style="border-color:${cfg.border}20;"
+            onmouseenter="this.style.borderColor='${cfg.border}'"
+            onmouseleave="this.style.borderColor='${cfg.border}20'">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:${cfg.color}"></div>
+            <div class="adol-avatar-wrap">
+              <div class="adol-avatar" style="background:${gradients[i%5]};color:#080B14">${ini}</div>
+              <div>
+                <div class="adol-name">${a.nome}</div>
+                <div class="adol-meta">${a.idade}a · ${VINCULOS[a.vinculo]||'—'}</div>
+              </div>
+            </div>
+            ${sVal!==null?`<div class="adol-s-badge" style="color:${sColor}">S = ${sVal}</div>`:'<div class="adol-s-badge" style="color:var(--muted)">Sem auditoria</div>'}
+            <div class="adol-footer">
+              <div class="adol-audits">${a.auditorias?a.auditorias.length:0} audit.</div>
+              <div class="adol-date">${date}</div>
+            </div>
+          </div>`;
+        }).join('');
+
+    return`<div class="kanban-col">
+      ${headerHtml}
+      <div class="kanban-col-body" style="background:${cfg.hbg}30;border-color:${cfg.border}">
+        ${cardsHtml}
       </div>
     </div>`;
-  }).join('')+`</div>`;
+  }).join('');
+
+  list.innerHTML=`<div class="kanban-board fade-in">${colsHtml}</div>`;
 }
 
 // ══════════════════════════════════════
@@ -1457,6 +1841,159 @@ function closeModal(id){document.getElementById(id).classList.remove('open');}
 function saveSettings(){ST.auditorName=document.getElementById('settings-name').value.trim();save();closeModal('modal-settings');renderApp();}
 function promptDelete(id){ST.deleteTarget=id;showModal('modal-delete');}
 function confirmDelete(){ST.adolescentes=ST.adolescentes.filter(a=>a.id!==ST.deleteTarget);ST.deleteTarget=null;save();closeModal('modal-delete');goToApp();}
+
+// ══════════════════════════════════════
+// CONTEÚDO — ARTIGOS
+// ══════════════════════════════════════
+
+const ARTIGOS = {
+  alucinacao: {
+    tag: 'Alucinação',
+    tagClass: 'tag-red',
+    title: 'A IA inventou.<br>E parecia verdade.',
+    lead: 'A IA não mente com intenção. Ela simplesmente não tem como saber quando está errada. Isso muda tudo sobre como você deve usá-la.',
+    cor: 'var(--red)',
+    corBg: 'rgba(248,113,113,.08)',
+    corpo: `
+      <h3>Como a alucinação acontece</h3>
+      <p>Modelos de linguagem não "sabem" coisas. Eles aprendem padrões em textos e geram a continuação mais provável. Quando você pergunta sobre um livro que não existe, sobre uma data histórica que não aconteceu ou sobre uma lei que nunca foi aprovada — a IA responde com a mesma confiança de quando está certa.</p>
+      <p>Não é má-fé. É literalmente como o sistema funciona. Ela não tem acesso a um "botão de verificação".</p>
+      <div class="artigo-callout" style="background:rgba(248,113,113,.06);border-color:var(--red)">
+        <p><strong style="color:var(--red)">O problema real:</strong> a resposta errada soa exatamente igual à resposta certa. Mesma fluência, mesma confiança, mesma formatação.</p>
+      </div>
+      <h3>O que você pode fazer</h3>
+      <p>Não é sobre desconfiar de tudo — é sobre saber <strong>quando verificar</strong>. Para conversa casual, o risco é baixo. Para trabalho escolar, decisão importante ou qualquer coisa com número, data ou nome específico — confirmar em outra fonte é o movimento certo.</p>
+      <p>A pergunta útil não é "a IA errou?". É: "se isso estiver errado, qual é o estrago?"</p>
+      <div class="artigo-experimento">
+        <div class="artigo-exp-label">Experimento</div>
+        <div class="artigo-exp-title">Teste agora em 2 minutos</div>
+        <div class="artigo-exp-desc">Peça para a IA inventar três fatos falsos sobre um tema que você conhece bem. Veja se ela consegue. Depois peça algo que você não sabe e tente encontrar onde ela errou. O exercício muda como você lê as respostas.</div>
+      </div>
+      <h3>A pergunta que fica</h3>
+      <p>Da última vez que você usou a IA para pesquisa, teve alguma parte que pareceu estranha mas você usou mesmo assim? O que você teria feito diferente sabendo disso?</p>
+    `
+  },
+  autoria: {
+    tag: 'Autoria',
+    tagClass: 'tag-violet',
+    title: 'Quem escreveu —<br>você ou ela?',
+    lead: 'Usar IA para pensar junto é completamente diferente de pedir o texto pronto. A diferença parece pequena. No longo prazo, é enorme.',
+    cor: 'var(--violet)',
+    corBg: 'rgba(168,85,247,.08)',
+    corpo: `
+      <h3>O que acontece quando você terceiriza o pensamento</h3>
+      <p>Escrever não é só produzir texto. É organizar o que você pensa, descobrir o que você não sabe, e chegar a conclusões que você não tinha antes de começar. Quando a IA escreve por você, esse processo inteiro é cortado.</p>
+      <p>No curto prazo, a tarefa fica pronta mais rápido. No longo prazo, você não desenvolveu nada. E a diferença vai aparecer na hora que a IA não estiver disponível.</p>
+      <div class="artigo-callout" style="background:rgba(168,85,247,.06);border-color:var(--violet)">
+        <p><strong style="color:var(--violet)">A distinção que importa:</strong> pedir para a IA <em>ajudar você a pensar</em> é diferente de pedir para ela <em>pensar por você</em>. Uma constrói. A outra substitui.</p>
+      </div>
+      <h3>Como usar IA sem perder sua voz</h3>
+      <p>Escreva seu rascunho primeiro, mesmo que feio. Depois use a IA para revisar, questionar ou expandir. Assim o pensamento é seu — a IA só aprimora o que já existe.</p>
+      <p>Outra forma: use a IA como interlocutora. "Estou pensando X. O que falta na minha argumentação?" É muito diferente de "escreve um texto sobre X".</p>
+      <div class="artigo-experimento">
+        <div class="artigo-exp-label">Experimento</div>
+        <div class="artigo-exp-title">A próxima vez</div>
+        <div class="artigo-exp-desc">Na próxima tarefa que você for usar IA, escreva três frases suas primeiro — só o início, não precisa ser bom. Depois use a IA para continuar a partir daí. Compare com o que você teria produzido sem escrever nada antes.</div>
+      </div>
+      <h3>A pergunta que fica</h3>
+      <p>Na última vez que você usou IA para um trabalho, qual parte foi genuinamente sua? Se você tivesse que apresentar esse trabalho ao vivo e explicar cada parágrafo — você conseguiria?</p>
+    `
+  },
+  privacidade: {
+    tag: 'Privacidade',
+    tagClass: 'tag-cyan',
+    title: 'O que você já<br>contou para a IA?',
+    lead: 'Cada prompt é um dado. Nome, escola, cidade, segredos de amigos — tudo que você digita fica registrado em algum lugar. Vale saber onde.',
+    cor: 'var(--cyan)',
+    corBg: 'rgba(0,229,255,.06)',
+    corpo: `
+      <h3>O que acontece com o que você digita</h3>
+      <p>Quando você usa ChatGPT, Gemini ou Claude, as suas mensagens são processadas nos servidores da empresa. Mesmo que os dados sejam anonimizados e protegidos, eles existem em algum lugar. E podem ser usados para treinar versões futuras do modelo — dependendo das configurações que você nunca foi perguntar se tinha.</p>
+      <p>Não é motivo para paranoia. É motivo para consciência sobre o que você escolhe digitar.</p>
+      <div class="artigo-callout" style="background:rgba(0,229,255,.06);border-color:var(--cyan)">
+        <p><strong style="color:var(--cyan)">A regra prática:</strong> tudo que você não postaria em público, não precisa estar no prompt. Isso inclui nome completo, escola, endereço, dados de colegas, informações de saúde e segredos de família.</p>
+      </div>
+      <h3>O que a LGPD tem a ver com isso</h3>
+      <p>A Lei Geral de Proteção de Dados brasileira (LGPD) dá proteção especial para dados de adolescentes. Mas ela protege você de terceiros — não te protege de você mesmo inserindo dados sensíveis voluntariamente.</p>
+      <p>A proteção real começa na sua decisão antes de digitar.</p>
+      <div class="artigo-experimento">
+        <div class="artigo-exp-label">Experimento</div>
+        <div class="artigo-exp-title">Revise seu histórico</div>
+        <div class="artigo-exp-desc">Abra seu histórico no ChatGPT ou Gemini. Leia as últimas 10 mensagens que você enviou. Tem algo que você não teria dito para um desconhecido? Esse é o exercício.</div>
+      </div>
+      <h3>A pergunta que fica</h3>
+      <p>Se um adulto que você não conhece pudesse ler tudo que você já digitou para uma IA, teria algo que te deixaria desconfortável? Por quê?</p>
+    `
+  },
+  processo: {
+    tag: 'Processo',
+    tagClass: 'tag-amber',
+    title: 'Você foi buscar —<br>ou foi levado?',
+    lead: 'Tem uma diferença entre abrir uma IA com intenção clara e abrir por impulso esperando que ela decida por você. Reconhecer isso é o começo de usar bem.',
+    cor: 'var(--amber)',
+    corBg: 'rgba(251,191,36,.06)',
+    corpo: `
+      <h3>A diferença entre usar e depender</h3>
+      <p>Usar IA com intenção parece assim: você sabe o que quer descobrir, formula uma pergunta, avalia a resposta com o que já sabe, e decide o que fazer com ela. Você é o sujeito da ação.</p>
+      <p>Depender de IA parece assim: você abre o chat sem saber bem o que quer, aceita a primeira resposta, e chama isso de pesquisa. A IA foi o sujeito — você executou.</p>
+      <div class="artigo-callout" style="background:rgba(251,191,36,.06);border-color:var(--amber)">
+        <p><strong style="color:var(--amber)">A pergunta mais importante antes de abrir qualquer IA:</strong> "Eu já pensei sobre isso por pelo menos 2 minutos antes de perguntar?"</p>
+      </div>
+      <h3>Por que isso importa agora</h3>
+      <p>A IA está ficando melhor na velocidade de um foguete. Em alguns anos ela vai conseguir fazer coisas que hoje parecem impossíveis. Mas quem vai decidir <em>o que perguntar</em>, <em>por que perguntar</em> e <em>o que fazer com a resposta</em> — isso ainda é humano. Esse músculo, se você não treinar agora, vai atrofiar.</p>
+      <p>Autonomia não é não usar IA. É saber usá-la sem precisar dela para pensar.</p>
+      <div class="artigo-experimento">
+        <div class="artigo-exp-label">Experimento</div>
+        <div class="artigo-exp-title">24 horas de intenção</div>
+        <div class="artigo-exp-desc">Por um dia, antes de abrir qualquer IA, escreva em uma frase o que você quer descobrir. Só uma frase. Depois compare o que você escreveu com o que a IA respondeu. Quantas vezes a resposta foi diferente do que você precisava?</div>
+      </div>
+      <h3>A pergunta que fica</h3>
+      <p>Nas últimas três vezes que você usou uma IA, você sabia exatamente o que queria antes de abrir? Ou foi descobrindo no meio?</p>
+    `
+  }
+};
+
+function abrirArtigo(id) {
+  const a = ARTIGOS[id];
+  if (!a) return;
+
+  // Monta próximo artigo para navegação
+  const ids = Object.keys(ARTIGOS);
+  const idx = ids.indexOf(id);
+  const proxId = ids[(idx + 1) % ids.length];
+  const prox = ARTIGOS[proxId];
+
+  document.getElementById('conteudo-index').style.display = 'none';
+  document.getElementById('conteudo-artigo').style.display = 'block';
+  window.scrollTo(0, 0);
+
+  document.getElementById('artigo-body').innerHTML = `
+    <button class="artigo-back" onclick="fecharArtigo()">← Todos os temas</button>
+    <div style="margin-bottom:14px"><span class="tag ${a.tagClass}">${a.tag}</span></div>
+    <h1 class="artigo-title">${a.title}</h1>
+    <p class="artigo-lead">${a.lead}</p>
+    <div class="artigo-body">${a.corpo}</div>
+    <div class="artigo-nav">
+      <button class="btn btn-ghost" onclick="fecharArtigo()">← Voltar</button>
+      <button class="btn btn-outline" onclick="abrirArtigo('${proxId}')">Próximo: ${prox.tag} →</button>
+    </div>
+    <div style="margin-top:48px;padding:32px;background:${a.corBg};border:1px solid ${a.cor}33;border-radius:20px;text-align:center">
+      <div style="font-size:13px;font-weight:600;color:${a.cor};margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase">Extensão Mirai</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:8px">Uma pergunta depois de cada sessão.</div>
+      <div style="font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.6">Gratuita. Funciona no ChatGPT, Gemini e Claude.<br>Só você vê as respostas.</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="mirai-extension-mvp.zip" download class="btn btn-grad">⬇ Baixar extensão</a>
+        <button class="btn btn-ghost" onclick="showScreen('screen-extensao')">Como instalar →</button>
+      </div>
+    </div>
+  `;
+}
+
+function fecharArtigo() {
+  document.getElementById('conteudo-index').style.display = 'block';
+  document.getElementById('conteudo-artigo').style.display = 'none';
+  window.scrollTo(0, 0);
+}
 
 // ══════════════════════════════════════
 // INIT
