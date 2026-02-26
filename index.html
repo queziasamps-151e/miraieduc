@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirai 未来 — Maturidade Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Serif+JP:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #080B14;
+  --bg2:       #0D1120;
+  --surface:   #111827;
+  --surface2:  #1A2235;
+  --border:    #1E2D45;
+  --border2:   #2A3F5F;
+  --text:      #F0F4FF;
+  --text2:     #A8B8D8;
+  --muted:     #5A7094;
+
+  --cyan:      #00E5FF;
+  --cyan-dim:  rgba(0,229,255,.12);
+  --violet:    #A855F7;
+  --violet-dim:rgba(168,85,247,.12);
+  --pink:      #F472B6;
+  --pink-dim:  rgba(244,114,182,.12);
+  --green:     #34D399;
+  --green-dim: rgba(52,211,153,.12);
+  --amber:     #FBBF24;
+  --amber-dim: rgba(251,191,36,.12);
+  --red:       #F87171;
+  --red-dim:   rgba(248,113,113,.12);
+
+  --grad1: linear-gradient(135deg,#00E5FF,#A855F7);
+  --grad2: linear-gradient(135deg,#A855F7,#F472B6);
+  --grad3: linear-gradient(135deg,#34D399,#00E5FF);
+  --grad4: linear-gradient(135deg,#FBBF24,#F472B6);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden;}
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+.screen{display:none;min-height:100vh;flex-direction:column;}
+.screen.active{display:flex;}
+.max-w{max-width:1100px;margin:0 auto;padding:0 28px;}
+.max-w-sm{max-width:760px;margin:0 auto;padding:0 28px;}
+@media(max-width:600px){.max-w,.max-w-sm{padding:0 16px;}}
+
+/* GLASS CARD */
+.glass{
+  background:rgba(17,24,39,.7);
+  border:1px solid var(--border);
+  border-radius:16px;
+  backdrop-filter:blur(12px);
+}
+.glass-bright{
+  background:rgba(26,34,53,.8);
+  border:1px solid var(--border2);
+  border-radius:16px;
+  backdrop-filter:blur(16px);
+}
+
+/* GLOW TEXT */
+.glow-cyan{
+  background:var(--grad1);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.glow-violet{
+  background:var(--grad2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 26px;border-radius:10px;font-size:14px;font-weight:600;
+  cursor:pointer;border:none;font-family:'Outfit',sans-serif;
+  transition:all .2s;text-decoration:none;letter-spacing:.01em;
+}
+.btn-grad{
+  background:var(--grad1);color:#080B14;
+  box-shadow:0 0 24px rgba(0,229,255,.25);
+}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(0,229,255,.4);}
+.btn-outline{
+  background:transparent;color:var(--cyan);
+  border:1px solid rgba(0,229,255,.4);
+}
+.btn-outline:hover{background:var(--cyan-dim);border-color:var(--cyan);}
+.btn-ghost{background:var(--surface2);color:var(--text2);border:1px solid var(--border2);}
+.btn-ghost:hover{border-color:var(--border2);color:var(--text);}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,.3);}
+.btn-danger:hover{background:rgba(248,113,113,.2);}
+.btn-lg{padding:15px 32px;font-size:16px;border-radius:12px;}
+.btn-full{width:100%;justify-content:center;}
+.btn-sm{padding:7px 16px;font-size:13px;border-radius:8px;}
+
+/* FORMS */
+.form-group{margin-bottom:22px;}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:8px;letter-spacing:.02em;}
+.form-input,.form-select{
+  width:100%;padding:12px 16px;
+  background:var(--surface2);border:1px solid var(--border2);border-radius:10px;
+  font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);
+  outline:none;transition:all .2s;
+}
+.form-input::placeholder{color:var(--muted);}
+.form-input:focus,.form-select:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px rgba(0,229,255,.12);
+}
+.form-select{cursor:pointer;}
+.form-select option{background:var(--surface2);}
+.form-hint{font-size:12px;color:var(--muted);margin-top:6px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:500px){.form-row{grid-template-columns:1fr;}}
+
+/* TAGS */
+.tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 14px;border-radius:20px;
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+}
+.tag-cyan{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,229,255,.25);}
+.tag-violet{background:var(--violet-dim);color:var(--violet);border:1px solid rgba(168,85,247,.25);}
+.tag-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(52,211,153,.25);}
+.tag-amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(251,191,36,.25);}
+.tag-red{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,.25);}
+.tag-pink{background:var(--pink-dim);color:var(--pink);border:1px solid rgba(244,114,182,.25);}
+
+/* SECTION */
+.section{padding:96px 0;}
+.section-tag{margin-bottom:20px;}
+.section-title{font-size:clamp(28px,4vw,44px);font-weight:800;line-height:1.15;margin-bottom:16px;letter-spacing:-.02em;}
+.section-sub{font-size:16px;color:var(--text2);line-height:1.75;max-width:560px;}
+
+/* ALERT */
+.alert{display:flex;gap:12px;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-size:13px;line-height:1.6;}
+.alert-icon{font-size:18px;flex-shrink:0;}
+.alert-cyan{background:var(--cyan-dim);border:1px solid rgba(0,229,255,.2);color:var(--cyan);}
+.alert-green{background:var(--green-dim);border:1px solid rgba(52,211,153,.2);color:var(--green);}
+.alert-amber{background:var(--amber-dim);border:1px solid rgba(251,191,36,.2);color:var(--amber);}
+.alert-red{background:var(--red-dim);border:1px solid rgba(248,113,113,.2);color:var(--red);}
+
+/* DIVIDER */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0;}
+
+/* TABS */
+.tabs{display:flex;gap:3px;background:var(--surface2);border-radius:12px;padding:4px;margin-bottom:28px;}
+.tab{flex:1;padding:9px;border-radius:9px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:none;background:transparent;font-family:'Outfit',sans-serif;color:var(--muted);}
+.tab.active{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.3);}
+
+.tab-content{display:none;}
+.tab-content.active{display:block;animation:fadeIn .2s ease;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:32px;max-width:460px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.5);animation:fadeIn .25s ease;}
+.modal-title{font-size:20px;font-weight:800;margin-bottom:8px;}
+.modal-body{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.7;}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3);}50%{box-shadow:0 0 40px rgba(0,229,255,.6);}}
+@keyframes gradient-shift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes spin-slow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes slide-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+.fade-in{animation:fadeIn .3s ease both;}
+.slide-up{animation:slide-up .5s ease both;}
+
+
+/* ═══════════════════════════════════════
+   TOPBAR (shared)
+═══════════════════════════════════════ */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,11,20,.85);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  height:60px;display:flex;align-items:center;
+  padding:0 28px;justify-content:space-between;
+  flex-shrink:0;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+}
+.logo-kanji{
+  font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700;
+  background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.logo-text{font-size:17px;font-weight:800;color:var(--text);letter-spacing:-.01em;}
+.logo-text span{background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ═══════════════════════════════════════
+   SCREEN: LANDING
+═══════════════════════════════════════ */
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 40px;height:70px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,11,20,.6);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);}
+.nav-links{display:flex;gap:32px;}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text2);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--cyan);}
+.nav-cta{display:flex;gap:10px;align-items:center;}
+@media(max-width:700px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;padding-top:70px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,229,255,.08) 0%, transparent 60%),
+             radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,.08) 0%, transparent 50%),
+             radial-gradient(ellipse 40% 40% at 20% 60%, rgba(244,114,182,.06) 0%, transparent 50%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+.hero-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;
+}
+.orb1{width:400px;height:400px;background:rgba(0,229,255,.12);top:-100px;right:-80px;animation:float 8s ease-in-out infinite;}
+.orb2{width:300px;height:300px;background:rgba(168,85,247,.1);bottom:80px;left:-60px;animation:float 10s ease-in-out infinite reverse;}
+.orb3{width:200px;height:200px;background:rgba(244,114,182,.08);top:40%;right:15%;animation:float 12s ease-in-out infinite;}
+
+.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+@media(max-width:800px){.hero-content{grid-template-columns:1fr;text-align:center;gap:40px;}}
+
+.hero-tag{margin-bottom:20px;}
+.hero-title{font-size:clamp(36px,5.5vw,66px);font-weight:900;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;}
+.hero-kanji{font-family:'Noto Serif JP',serif;font-size:clamp(18px,3vw,26px);font-weight:400;color:var(--muted);margin-bottom:10px;display:block;}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--text2);line-height:1.75;margin-bottom:36px;font-weight:300;max-width:480px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+@media(max-width:800px){.hero-actions{justify-content:center;}}
+
+/* HERO VISUAL */
+.hero-visual{position:relative;animation:float 6s ease-in-out infinite;}
+.hero-card-main{
+  background:linear-gradient(135deg,var(--surface),var(--surface2));
+  border:1px solid var(--border2);border-radius:20px;padding:24px;
+  box-shadow:0 0 60px rgba(0,229,255,.1),0 24px 48px rgba(0,0,0,.4);
+}
+.hcm-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.hcm-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--grad1);display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:16px;color:#080B14;flex-shrink:0;
+}
+.hcm-name{font-size:14px;font-weight:700;}
+.hcm-meta{font-size:12px;color:var(--muted);}
+.hcm-badge{margin-left:auto;}
+.hcm-bars{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.hcm-bar-row{display:flex;align-items:center;gap:10px;}
+.hcm-bar-label{font-size:12px;color:var(--text2);min-width:60px;}
+.hcm-bar-track{flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.hcm-bar-fill{height:100%;border-radius:3px;}
+.hcm-bar-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:32px;text-align:right;}
+.hcm-s{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--surface2);border-radius:10px;padding:12px 16px;
+  border:1px solid rgba(0,229,255,.15);
+}
+.hcm-s-label{font-size:12px;color:var(--text2);}
+.hcm-s-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--cyan);}
+
+/* floating mini cards */
+.float-card{
+  position:absolute;background:var(--surface2);border:1px solid var(--border2);
+  border-radius:12px;padding:10px 14px;font-size:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  animation:float 7s ease-in-out infinite;
+}
+.fc1{top:-20px;left:-40px;animation-delay:-2s;}
+.fc2{bottom:-16px;right:-30px;animation-delay:-4s;}
+.fc-icon{font-size:18px;margin-bottom:4px;}
+.fc-text{font-weight:600;color:var(--text);}
+.fc-sub{color:var(--muted);font-size:11px;}
+
+/* STATS BAR */
+.stats-bar{
+  background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:32px 0;
+}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
+@media(max-width:600px){.stats-inner{grid-template-columns:repeat(2,1fr);}}
+.stat-n{font-size:32px;font-weight:900;line-height:1;}
+.stat-l{font-size:13px;color:var(--text2);margin-top:4px;}
+
+/* PROBLEM SECTION */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+@media(max-width:700px){.problem-grid{grid-template-columns:1fr;}}
+.problem-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:24px;position:relative;overflow:hidden;
+  transition:transform .2s,border-color .2s;
+}
+.problem-card:hover{transform:translateY(-4px);border-color:var(--border2);}
+.problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}
+.pc-red::before{background:var(--red);}
+.pc-amber::before{background:var(--amber);}
+.pc-violet::before{background:var(--violet);}
+.problem-icon{font-size:32px;margin-bottom:14px;}
+.problem-title{font-size:15px;font-weight:700;margin-bottom:8px;}
+.problem-desc{font-size:13px;color:var(--text2);line-height:1.7;}
+
+/* BENEFITS SECTION */
+.benefits-tabs{display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;}
+.benefit-tab{
+  padding:10px 22px;border-radius:30px;font-size:14px;font-weight:600;
+  cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--muted);
+  font-family:'Outfit',sans-serif;transition:all .2s;
+}
+.benefit-tab.active{background:var(--grad1);color:#080B14;border-color:transparent;box-shadow:0 0 20px rgba(0,229,255,.2);}
+.benefit-content{display:none;}
+.benefit-content.active{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;animation:fadeIn .3s ease;}
+@media(max-width:700px){.benefit-content.active{grid-template-columns:1fr;}}
+.benefit-list{display:flex;flex-direction:column;gap:16px;margin-top:24px;}
+.benefit-item{display:flex;gap:14px;align-items:flex-start;}
+.benefit-check{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;margin-top:2px;
+}
+.benefit-text-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.benefit-text-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.benefit-visual{
+  background:var(--surface);border:1px solid var(--border2);border-radius:20px;
+  padding:28px;text-align:center;
+  box-shadow:0 0 40px rgba(0,0,0,.3);
+}
+
+/* FLOW SECTION */
+.flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;position:relative;}
+@media(max-width:700px){.flow-steps{grid-template-columns:1fr 1fr;}}
+@media(max-width:400px){.flow-steps{grid-template-columns:1fr;}}
+.flow-step{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;
+  text-align:center;position:relative;transition:all .25s;cursor:default;
+}
+.flow-step:hover{border-color:var(--cyan);transform:translateY(-4px);box-shadow:0 0 30px rgba(0,229,255,.1);}
+.flow-num{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--grad1);display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#080B14;margin:0 auto 14px;
+}
+.flow-icon{font-size:28px;margin-bottom:10px;}
+.flow-title{font-size:14px;font-weight:700;margin-bottom:6px;}
+.flow-desc{font-size:12px;color:var(--text2);line-height:1.6;}
+.flow-arrow{
+  position:absolute;top:50%;right:-18px;transform:translateY(-50%);
+  color:var(--muted);font-size:20px;z-index:2;
+}
+@media(max-width:700px){.flow-arrow{display:none;}}
+
+/* DEPOIMENTOS */
+.depo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
+@media(max-width:700px){.depo-grid{grid-template-columns:1fr;}}
+.depo-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;
+  transition:transform .2s,border-color .2s;
+}
+.depo-card:hover{transform:translateY(-4px);border-color:var(--border2);}
+.depo-stars{color:var(--amber);font-size:14px;margin-bottom:14px;letter-spacing:2px;}
+.depo-text{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:18px;font-style:italic;}
+.depo-author{display:flex;align-items:center;gap:10px;}
+.depo-avatar{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:14px;color:#080B14;flex-shrink:0;
+}
+.depo-name{font-size:14px;font-weight:600;}
+.depo-role{font-size:12px;color:var(--muted);}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-top:40px;max-width:760px;margin-left:auto;margin-right:auto;}
+.faq-item{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;transition:border-color .2s;
+}
+.faq-item.open{border-color:var(--border2);}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 22px;cursor:pointer;gap:16px;
+  background:none;border:none;width:100%;text-align:left;
+  font-family:'Outfit',sans-serif;color:var(--text);
+}
+.faq-q:hover{background:var(--surface2);}
+.faq-q-text{font-size:15px;font-weight:600;}
+.faq-icon{font-size:18px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--cyan);}
+.faq-a{
+  display:none;padding:0 22px 18px;
+  font-size:14px;color:var(--text2);line-height:1.75;
+}
+.faq-item.open .faq-a{display:block;animation:fadeIn .2s ease;}
+
+/* CTA FINAL */
+.cta-section{
+  padding:96px 0;text-align:center;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,229,255,.06) 0%,transparent 60%);
+}
+.cta-box{
+  background:var(--surface);border:1px solid var(--border2);border-radius:24px;
+  padding:64px 48px;max-width:700px;margin:0 auto;
+  box-shadow:0 0 80px rgba(0,229,255,.06);
+}
+.cta-title{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-.02em;margin-bottom:14px;}
+.cta-sub{font-size:16px;color:var(--text2);margin-bottom:36px;line-height:1.7;}
+
+/* FOOTER */
+.footer{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:32px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer-left{font-size:13px;color:var(--muted);}
+.footer-right{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* ═══════════════════════════════════════
+   SCREEN: ONBOARDING (quiz)
+═══════════════════════════════════════ */
+.onboard-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:40px 20px;
+  background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(0,229,255,.05) 0%,transparent 60%);
+}
+.onboard-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:24px;
+  padding:40px;max-width:600px;width:100%;
+  box-shadow:0 32px 80px rgba(0,0,0,.5);
+  animation:slide-up .4s ease both;
+}
+.onboard-progress{height:3px;background:var(--surface2);border-radius:2px;margin-bottom:36px;overflow:hidden;}
+.onboard-progress-fill{height:100%;background:var(--grad1);border-radius:2px;transition:width .4s ease;}
+.onboard-step-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;margin-bottom:8px;}
+.onboard-title{font-size:22px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em;}
+.onboard-desc{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.7;}
+.onboard-options{display:flex;flex-direction:column;gap:10px;}
+.onboard-opt{
+  display:flex;align-items:flex-start;gap:14px;padding:16px 18px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:12px;
+  cursor:pointer;transition:all .18s;text-align:left;width:100%;
+  font-family:'Outfit',sans-serif;
+}
+.onboard-opt:hover{border-color:var(--border2);background:rgba(0,229,255,.04);}
+.onboard-opt.selected{border-color:var(--cyan);background:rgba(0,229,255,.08);}
+.onboard-opt.selected .opt-dot{background:var(--cyan);border-color:var(--cyan);}
+.onboard-opt.selected .opt-dot::after{display:block;}
+.opt-dot{
+  width:20px;height:20px;border-radius:50%;border:2px solid var(--border2);
+  flex-shrink:0;margin-top:1px;position:relative;transition:all .18s;
+}
+.opt-dot::after{content:'';display:none;width:8px;height:8px;border-radius:50%;background:#080B14;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+.opt-main{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.opt-sub{font-size:12px;color:var(--muted);line-height:1.5;}
+.onboard-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;}
+.onboard-back{font-size:13px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Outfit',sans-serif;transition:color .2s;}
+.onboard-back:hover{color:var(--text);}
+.onboard-info{font-size:12px;color:var(--muted);}
+
+/* ═══════════════════════════════════════
+   SCREEN: APP (dashboard)
+═══════════════════════════════════════ */
+.app-body{flex:1;max-width:980px;margin:0 auto;padding:36px 28px 80px;width:100%;}
+@media(max-width:600px){.app-body{padding:24px 16px 60px;}}
+
+.page-title{font-size:clamp(20px,3.5vw,28px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px;}
+.page-sub{font-size:14px;color:var(--text2);margin-bottom:32px;font-weight:300;}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+
+/* DASH STATS */
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:32px;}
+.stat-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:18px 20px;transition:border-color .2s;
+}
+.stat-card:hover{border-color:var(--border2);}
+.stat-card-val{font-size:28px;font-weight:900;line-height:1;margin-bottom:4px;}
+.stat-card-label{font-size:12px;color:var(--muted);}
+
+/* ADOL CARDS */
+.adol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.adol-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:22px;cursor:pointer;transition:all .18s;
+}
+.adol-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
+.adol-avatar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.adol-avatar{
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:17px;flex-shrink:0;
+}
+.adol-name{font-size:15px;font-weight:700;}
+.adol-meta{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.adol-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);}
+.adol-audits{font-size:11px;color:var(--muted);}
+.adol-date{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:64px 20px;background:var(--surface);border:1px dashed var(--border2);border-radius:16px;}
+.empty-icon{font-size:48px;margin-bottom:16px;}
+.empty-title{font-size:17px;font-weight:700;margin-bottom:8px;}
+.empty-desc{font-size:14px;color:var(--text2);max-width:360px;margin:0 auto 28px;line-height:1.7;}
+
+/* ═══════════════════════════════════════
+   SCREEN: AUDIT
+═══════════════════════════════════════ */
+.audit-progress-bar-wrap{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:16px 28px;flex-shrink:0;
+}
+.audit-prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.audit-prog-title{font-size:13px;font-weight:600;}
+.audit-prog-step{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
+.audit-prog-track{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;}
+.audit-prog-fill{height:100%;background:var(--grad1);border-radius:2px;transition:width .4s ease;}
+
+.audit-body{flex:1;max-width:720px;margin:0 auto;padding:36px 28px;width:100%;}
+@media(max-width:600px){.audit-body{padding:24px 16px;}}
+
+.q-card{
+  background:var(--surface);border:1px solid var(--border2);border-radius:16px;
+  padding:28px;margin-bottom:20px;animation:fadeIn .25s ease;
+}
+.q-phase{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 14px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;
+}
+.q-title{font-size:18px;font-weight:800;line-height:1.4;margin-bottom:8px;letter-spacing:-.01em;}
+.q-desc{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.7;}
+.q-options{display:flex;flex-direction:column;gap:8px;}
+.q-opt{
+  display:flex;align-items:flex-start;gap:14px;padding:14px 16px;
+  border:1px solid var(--border);border-radius:10px;background:var(--surface2);
+  cursor:pointer;transition:all .15s;text-align:left;width:100%;font-family:'Outfit',sans-serif;
+}
+.q-opt:hover{border-color:var(--border2);background:rgba(0,229,255,.04);}
+.q-opt.sel{border-color:var(--cyan);background:rgba(0,229,255,.08);}
+.q-opt.sel .q-dot{background:var(--cyan);border-color:var(--cyan);}
+.q-opt.sel .q-dot::after{display:block;}
+.q-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;margin-top:2px;position:relative;transition:all .15s;}
+.q-dot::after{content:'';display:none;width:7px;height:7px;border-radius:50%;background:#080B14;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+.q-opt-main{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.q-opt-sub{font-size:12px;color:var(--muted);line-height:1.5;}
+
+.audit-nav-bar{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:14px 28px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;
+}
+.audit-nav-info{font-size:12px;color:var(--muted);}
+
+/* ═══════════════════════════════════════
+   SCREEN: RESULT
+═══════════════════════════════════════ */
+.result-hero-band{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:36px 28px;flex-shrink:0;
+}
+.result-hero-inner{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+@media(max-width:600px){.result-hero-inner{grid-template-columns:1fr;}}
+
+.s-ring{
+  width:110px;height:110px;border-radius:50%;border:3px solid;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex-shrink:0;position:relative;
+}
+.s-ring::before{
+  content:'';position:absolute;inset:-8px;border-radius:50%;
+  background:conic-gradient(var(--cyan) 0%, transparent 0%);
+  opacity:.15;filter:blur(4px);
+}
+.s-ring-val{font-size:30px;font-weight:900;line-height:1;font-family:'JetBrains Mono',monospace;}
+.s-ring-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+
+.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+@media(max-width:500px){.metrics-grid{grid-template-columns:1fr;}}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.metric-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.metric-val{font-size:26px;font-weight:900;line-height:1;margin-bottom:4px;}
+.metric-desc{font-size:12px;color:var(--muted);}
+
+.dim-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.dim-name{font-size:12px;font-weight:600;min-width:72px;color:var(--text2);}
+.dim-track{flex:1;height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;}
+.dim-fill{height:100%;border-radius:4px;transition:width .9s ease;}
+.dim-pct{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:38px;text-align:right;}
+
+.recom-card{border-radius:12px;padding:22px;margin-bottom:14px;border-left:3px solid;}
+.recom-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:10px;}
+.recom-title{font-size:15px;font-weight:700;margin-bottom:8px;}
+.recom-body{font-size:13px;color:var(--text2);line-height:1.75;}
+.recom-actions{display:flex;flex-direction:column;gap:6px;margin-top:14px;}
+.recom-action{display:flex;align-items:flex-start;gap:10px;font-size:13px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.04);}
+
+.hist-item{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:8px;flex-wrap:wrap;}
+.hist-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);min-width:90px;}
+.hist-s{font-family:'JetBrains Mono',monospace;font-size:12px;margin-left:auto;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ SCREEN: LANDING ══════════════ -->
+<div id="screen-landing" class="screen active">
+  <nav class="nav">
+    <div class="logo">
+      <span class="logo-kanji">未来</span>
+      <span class="logo-text">Mirai</span>
+    </div>
+    <div class="nav-links">
+      <a href="#problema">O problema</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-outline btn-sm" onclick="goToApp()">Entrar</button>
+      <button class="btn btn-grad btn-sm" onclick="startOnboarding()">Começar grátis</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+    <div class="hero-content">
+      <div class="slide-up">
+        <span class="hero-kanji">未来 · mirai · futuro</span>
+        <div class="hero-tag"><span class="tag tag-cyan">Para pais e professores</span></div>
+        <h1 class="hero-title">
+          Seu filho usa IA.<br>
+          <span class="glow-cyan">Você sabe como?</span>
+        </h1>
+        <p class="hero-sub">Mirai é a plataforma que ajuda pais e professores a acompanhar e desenvolver a maturidade digital de adolescentes no uso de Inteligência Artificial — de forma simples, visual e sem precisar ser especialista.</p>
+        <div class="hero-actions">
+          <button class="btn btn-grad btn-lg" onclick="startOnboarding()">Começar agora — é grátis →</button>
+          <button class="btn btn-outline" onclick="scrollTo('#como-funciona')">Ver como funciona</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-main">
+          <div class="hcm-header">
+            <div class="hcm-avatar">L</div>
+            <div><div class="hcm-name">Lucas, 15 anos</div><div class="hcm-meta">Pesquisa e estudo</div></div>
+            <div class="hcm-badge"><span class="tag tag-green">N4 Gerenciado</span></div>
+          </div>
+          <div class="hcm-bars">
+            <div class="hcm-bar-row"><span class="hcm-bar-label">Técnica</span><div class="hcm-bar-track"><div class="hcm-bar-fill" style="width:78%;background:var(--cyan)"></div></div><span class="hcm-bar-val">78%</span></div>
+            <div class="hcm-bar-row"><span class="hcm-bar-label">Ética</span><div class="hcm-bar-track"><div class="hcm-bar-fill" style="width:85%;background:var(--violet)"></div></div><span class="hcm-bar-val">85%</span></div>
+            <div class="hcm-bar-row"><span class="hcm-bar-label">Crítica</span><div class="hcm-bar-track"><div class="hcm-bar-fill" style="width:64%;background:var(--green)"></div></div><span class="hcm-bar-val">64%</span></div>
+          </div>
+          <div class="hcm-s">
+            <span class="hcm-s-label">Grau de Segurança <span style="color:var(--muted);font-size:11px">(S)</span></span>
+            <span class="hcm-s-val">68 ✓</span>
+          </div>
+        </div>
+        <div class="float-card fc1">
+          <div class="fc-icon">🔍</div>
+          <div class="fc-text">Verificou fontes</div>
+          <div class="fc-sub">fase Check ativa</div>
+        </div>
+        <div class="float-card fc2">
+          <div class="fc-icon">📈</div>
+          <div class="fc-text">+12% este mês</div>
+          <div class="fc-sub">dimensão crítica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="max-w">
+      <div class="stats-inner">
+        <div><div class="stat-n glow-cyan">73%</div><div class="stat-l">dos adolescentes aceitam respostas da IA sem verificar</div></div>
+        <div><div class="stat-n" style="background:var(--grad2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">38%</div><div class="stat-l">taxa de alucinação em domínios técnicos</div></div>
+        <div><div class="stat-n" style="color:var(--green)">5 min</div><div class="stat-l">para completar uma auditoria completa no Mirai</div></div>
+        <div><div class="stat-n" style="color:var(--amber)">ISO</div><div class="stat-l">framework baseado em ISO 9004 e ISO 31000</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PROBLEMA -->
+  <section id="problema" class="section">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-red">O problema real</span></div>
+      <h2 class="section-title">A IA entrou na vida do seu filho.<br><span class="glow-violet">Sem pedir licença.</span></h2>
+      <p class="section-sub">Não é sobre proibir. É sobre entender o que está acontecendo e como ajudar.</p>
+      <div class="problem-grid">
+        <div class="problem-card pc-red">
+          <div class="problem-icon">🧠</div>
+          <div class="problem-title">Alucinações invisíveis</div>
+          <div class="problem-desc">A IA inventa dados, datas e referências com total confiança. Adolescentes sem método de verificação aceitam tudo como verdade — e entregam nos trabalhos.</div>
+        </div>
+        <div class="problem-card pc-amber">
+          <div class="problem-icon">✍️</div>
+          <div class="problem-title">Autoria que some</div>
+          <div class="problem-desc">Pedir a redação pronta para a IA não é aprender — é terceirizar o pensamento. A atrofia cognitiva acontece silenciosamente, sem que ninguém perceba.</div>
+        </div>
+        <div class="problem-card pc-violet">
+          <div class="problem-icon">🔒</div>
+          <div class="problem-title">Privacidade exposta</div>
+          <div class="problem-desc">Adolescentes compartilham nome, escola, endereço e dados de colegas nos prompts sem saber os riscos legais e de segurança que isso representa.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="section">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-cyan">O método</span></div>
+      <h2 class="section-title">Simples para você.<br><span class="glow-cyan">Rigoroso por dentro.</span></h2>
+      <p class="section-sub">Mirai transforma um método científico baseado em normas ISO em 5 minutos de perguntas intuitivas.</p>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-num">1</div>
+          <div class="flow-icon">👤</div>
+          <div class="flow-title">Cadastre</div>
+          <div class="flow-desc">Nome, idade e vínculo. Em 30 segundos o perfil está pronto.</div>
+          <div class="flow-arrow">→</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">2</div>
+          <div class="flow-icon">🔎</div>
+          <div class="flow-title">Observe</div>
+          <div class="flow-desc">Revise uma sessão recente de uso de IA. Não precisa entender de tecnologia.</div>
+          <div class="flow-arrow">→</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">3</div>
+          <div class="flow-icon">📋</div>
+          <div class="flow-title">Responda</div>
+          <div class="flow-desc">12 perguntas guiadas com linguagem clara. Mirai faz os cálculos automaticamente.</div>
+          <div class="flow-arrow">→</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">4</div>
+          <div class="flow-icon">🎯</div>
+          <div class="flow-title">Aja</div>
+          <div class="flow-desc">Receba um plano de ação personalizado com próximos passos práticos.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- BENEFÍCIOS -->
+  <section id="beneficios" class="section">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-violet">Para quem é o Mirai</span></div>
+      <h2 class="section-title">Feito para quem<br><span class="glow-violet">cuida de verdade.</span></h2>
+      <div class="benefits-tabs">
+        <button class="benefit-tab active" onclick="switchBenefit('pais',this)">👨‍👩‍👧 Para pais</button>
+        <button class="benefit-tab" onclick="switchBenefit('professores',this)">👩‍🏫 Para professores</button>
+      </div>
+      <div id="benefit-pais" class="benefit-content active">
+        <div>
+          <p style="font-size:16px;color:var(--text2);line-height:1.75">Você não precisa entender de IA para usar o Mirai. Precisa apenas de 5 minutos e de querer acompanhar o que acontece quando seu filho abre o ChatGPT.</p>
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--cyan-dim)">🧭</div>
+              <div><div class="benefit-text-title">Entenda sem precisar ser técnico</div><div class="benefit-text-desc">Linguagem simples que traduz comportamento em informação útil.</div></div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--green-dim)">📊</div>
+              <div><div class="benefit-text-title">Acompanhe a evolução ao longo do tempo</div><div class="benefit-text-desc">Histórico visual de cada auditoria para ver se está melhorando.</div></div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--violet-dim)">🛡️</div>
+              <div><div class="benefit-text-title">Proteja antes que o problema apareça</div><div class="benefit-text-desc">Alertas de privacidade e conformidade antes de qualquer dano.</div></div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--amber-dim)">💬</div>
+              <div><div class="benefit-text-title">Saiba exatamente o que conversar</div><div class="benefit-text-desc">Cada resultado vem com sugestões práticas de conversa e próximos passos.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="benefit-visual">
+          <div style="font-size:48px;margin-bottom:16px">👨‍👩‍👧‍👦</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:8px">A ferramenta que faltava</div>
+          <p style="font-size:14px;color:var(--text2);line-height:1.7">"Eu sabia que a Ana usava IA, mas não sabia como avaliar se estava usando bem. O Mirai me deu as perguntas certas para fazer."</p>
+          <div style="margin-top:16px"><span class="tag tag-cyan">Mãe de adolescente de 14 anos</span></div>
+        </div>
+      </div>
+      <div id="benefit-professores" class="benefit-content">
+        <div>
+          <p style="font-size:16px;color:var(--text2);line-height:1.75">Mirai complementa sua avaliação acadêmica com uma dimensão que nenhuma nota captura: o processo de raciocínio que o aluno usa quando interage com a IA.</p>
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--cyan-dim)">🎓</div>
+              <div><div class="benefit-text-title">Avalie processo, não só resultado</div><div class="benefit-text-desc">Distingua o aluno que realmente aprendeu do que decorou a resposta da IA.</div></div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--green-dim)">🤝</div>
+              <div><div class="benefit-text-title">Compartilhe com os pais</div><div class="benefit-text-desc">Um relatório que pais conseguem entender e agir em casa.</div></div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--violet-dim)">📏</div>
+              <div><div class="benefit-text-title">Critérios objetivos e auditáveis</div><div class="benefit-text-desc">Framework baseado em normas ISO — defensável pedagogicamente.</div></div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-check" style="background:var(--pink-dim)">📐</div>
+              <div><div class="benefit-text-title">Calibre sua política de uso de IA</div><div class="benefit-text-desc">Tome decisões sobre permissões e restrições com dados, não intuição.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="benefit-visual">
+          <div style="font-size:48px;margin-bottom:16px">👩‍🏫</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:8px">Além da nota</div>
+          <p style="font-size:14px;color:var(--text2);line-height:1.7">"Com o Mirai consegui mostrar para os pais exatamente por que o João tirou nota baixa mesmo usando IA — ele não verificou nada do que a IA disse."</p>
+          <div style="margin-top:16px"><span class="tag tag-violet">Professor de ensino médio</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-amber">Quem já usa</span></div>
+      <h2 class="section-title">Pessoas reais.<br><span class="glow-cyan">Resultados reais.</span></h2>
+      <p class="section-sub" style="color:var(--muted);font-size:13px;margin-top:4px">* Depoimentos ilustrativos para demonstração do produto</p>
+      <div class="depo-grid">
+        <div class="depo-card">
+          <div class="depo-stars">★★★★★</div>
+          <div class="depo-text">"Nunca pensei que conseguiria entender se minha filha estava usando a IA de forma saudável. O Mirai me mostrou que ela estava aceitando tudo sem verificar — e me deu um roteiro de conversa."</div>
+          <div class="depo-author"><div class="depo-avatar" style="background:var(--cyan-dim);color:var(--cyan)">M</div><div><div class="depo-name">Mariana S.</div><div class="depo-role">Mãe, filha de 13 anos · São Paulo</div></div></div>
+        </div>
+        <div class="depo-card">
+          <div class="depo-stars">★★★★★</div>
+          <div class="depo-text">"Usei com toda a minha turma do 2º ano. Em um mês consegui identificar os alunos que estavam simplesmente copiando a IA dos que realmente interagiam criticamente."</div>
+          <div class="depo-author"><div class="depo-avatar" style="background:var(--violet-dim);color:var(--violet)">R</div><div><div class="depo-name">Prof. Rodrigo A.</div><div class="depo-role">Professor de História · Rio de Janeiro</div></div></div>
+        </div>
+        <div class="depo-card">
+          <div class="depo-stars">★★★★★</div>
+          <div class="depo-text">"Meu filho de 16 anos ficou curioso com o relatório dele. Pela primeira vez ele quis entender por que estava no Nível 3 e não no 4. Isso gerou uma conversa incrível sobre como ele pensa."</div>
+          <div class="depo-author"><div class="depo-avatar" style="background:var(--green-dim);color:var(--green)">F</div><div><div class="depo-name">Fernando L.</div><div class="depo-role">Pai, filho de 16 anos · Belo Horizonte</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-green">Perguntas frequentes</span></div>
+      <h2 class="section-title" style="text-align:center">Tudo que você<br><span class="glow-green" style="background:var(--grad3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">precisa saber.</span></h2>
+      <div class="faq-list" id="faq-list"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA FINAL -->
+  <div class="cta-section">
+    <div class="max-w">
+      <div class="cta-box">
+        <div style="font-size:48px;margin-bottom:16px">未来</div>
+        <div class="cta-title">Comece a acompanhar <span class="glow-cyan">hoje.</span></div>
+        <div class="cta-sub">Gratuito, sem cadastro de e-mail, sem servidor. Seus dados ficam só no seu dispositivo.</div>
+        <button class="btn btn-grad btn-lg" onclick="startOnboarding()">Criar meu primeiro perfil →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">未来 Mirai · Maturidade Digital · Framework baseado em ISO 9004 × ISO 31000</div>
+    <div class="footer-right">v1.0 MVP · Dados salvos localmente</div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN: ONBOARDING ══════════════ -->
+<div id="screen-onboard" class="screen">
+  <div class="topbar">
+    <div class="logo" onclick="showLanding()">
+      <span class="logo-kanji">未来</span>
+      <span class="logo-text">Mirai</span>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="showLanding()">← Voltar</button>
+  </div>
+  <div class="onboard-wrap">
+    <div class="onboard-card" id="onboard-card">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN: APP ══════════════ -->
+<div id="screen-app" class="screen">
+  <div class="topbar">
+    <div class="logo" onclick="showLanding()">
+      <span class="logo-kanji">未来</span>
+      <span class="logo-text">Mirai</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span id="app-user-label" style="font-size:13px;color:var(--muted)"></span>
+      <button class="btn btn-ghost btn-sm" onclick="showModal('modal-backup')" title="Backup de dados">💾</button>
+      <button class="btn btn-ghost btn-sm" onclick="showModal('modal-settings')">⚙</button>
+    </div>
+  </div>
+  <div class="app-body">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;flex-wrap:wrap;gap:16px">
+      <div>
+        <div class="page-title" id="app-greeting">Painel</div>
+        <div class="page-sub">Acompanhe a jornada digital de cada adolescente</div>
+      </div>
+      <button class="btn btn-grad" onclick="startOnboarding()">+ Novo adolescente</button>
+    </div>
+    <div class="dash-stats" id="dash-stats"></div>
+    <div class="section-label">Adolescentes monitorados</div>
+    <div id="adol-list"></div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN: AUDIT ══════════════ -->
+<div id="screen-audit" class="screen">
+  <div class="topbar">
+    <div class="logo"><span class="logo-kanji">未来</span><span class="logo-text">Mirai</span></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <span id="audit-name" style="font-size:13px;font-weight:600;color:var(--text)"></span>
+      <button class="btn btn-ghost btn-sm" onclick="showModal('modal-cancel-audit')">Cancelar</button>
+    </div>
+  </div>
+  <div class="audit-progress-bar-wrap">
+    <div class="audit-prog-header">
+      <div class="audit-prog-title" id="audit-phase-label">Fase</div>
+      <div class="audit-prog-step" id="audit-step-label">Pergunta 1 de 12</div>
+    </div>
+    <div class="audit-prog-track"><div class="audit-prog-fill" id="audit-prog-fill" style="width:8%"></div></div>
+  </div>
+  <div class="audit-body" id="audit-body"></div>
+  <div class="audit-nav-bar">
+    <div class="audit-nav-info" id="audit-nav-info">Selecione uma opção</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-ghost btn-sm" id="btn-prev" onclick="prevQ()" style="display:none">← Anterior</button>
+      <button class="btn btn-grad" id="btn-next" onclick="nextQ()" disabled>Próxima →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN: RESULT ══════════════ -->
+<div id="screen-result" class="screen">
+  <div class="topbar">
+    <div class="logo"><span class="logo-kanji">未来</span><span class="logo-text">Mirai</span></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-ghost btn-sm" onclick="goToApp()">← Painel</button>
+      <button class="btn btn-grad btn-sm" onclick="newAudit()">Nova auditoria</button>
+    </div>
+  </div>
+  <div class="result-hero-band">
+    <div class="result-hero-inner">
+      <div>
+        <div class="section-label">Relatório de Maturidade Digital</div>
+        <div class="page-title" id="res-title">Relatório</div>
+        <div style="font-size:13px;color:var(--muted)" id="res-meta"></div>
+      </div>
+      <div class="s-ring" id="s-ring">
+        <div class="s-ring-val" id="s-val">—</div>
+        <div class="s-ring-label">grau S</div>
+      </div>
+    </div>
+  </div>
+  <div class="app-body">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('tab-r-resumo',this)">Resumo</button>
+      <button class="tab" onclick="switchTab('tab-r-dims',this)">Dimensões</button>
+      <button class="tab" onclick="switchTab('tab-r-recom',this)">Recomendações</button>
+      <button class="tab" onclick="switchTab('tab-r-hist',this)">Histórico</button>
+    </div>
+    <div id="tab-r-resumo" class="tab-content active"></div>
+    <div id="tab-r-dims" class="tab-content"></div>
+    <div id="tab-r-recom" class="tab-content"></div>
+    <div id="tab-r-hist" class="tab-content"></div>
+  </div>
+</div>
+
+<!-- MODAIS -->
+<!-- MODAL LGPD -->
+<div class="modal-overlay" id="modal-lgpd">
+  <div class="modal">
+    <div style="font-size:36px;margin-bottom:12px">🔒</div>
+    <div class="modal-title">Antes de continuar</div>
+    <div class="modal-body">
+      <p style="margin-bottom:12px">O Mirai vai pedir um <strong>apelido ou nome fictício</strong> para identificar o adolescente — <strong>nunca use o nome real</strong>.</p>
+      <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.7">
+        <div style="font-weight:700;color:var(--amber);margin-bottom:6px">⚠ Por que isso importa?</div>
+        Todos os dados ficam <strong>apenas no seu dispositivo</strong> (sem servidor). Mas como medida de privacidade extra, recomendamos não inserir dados que identifiquem diretamente o menor — seguindo o espírito do <strong>Art. 14 da LGPD</strong>, que protege dados de crianças e adolescentes.
+      </div>
+      <div style="font-size:12px;color:var(--muted)">Exemplos de identificação segura: "Filho mais velho", "Aluno B3", "Pedro" (primeiro nome apenas), "Turma 9A #05".</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-grad btn-full" onclick="closeModal('modal-lgpd');obStep=1;renderOnboard()">Entendi — vamos continuar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BACKUP -->
+<div class="modal-overlay" id="modal-backup">
+  <div class="modal">
+    <div class="modal-title">Backup de dados</div>
+    <div class="modal-body">
+      <p style="margin-bottom:14px">Seus dados ficam só neste navegador. Faça backup regularmente para não perder o histórico de auditorias.</p>
+      <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;font-size:12px;color:var(--muted);margin-bottom:4px">
+        <strong style="color:var(--text2)">⚠ Atenção:</strong> limpar o cache ou trocar de navegador apaga os dados. O backup é sua única proteção.
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-grad btn-full" onclick="exportData()">⬇ Exportar backup (JSON)</button>
+      <label class="btn btn-ghost btn-full" style="cursor:pointer;justify-content:center">
+        ⬆ Importar backup (JSON)
+        <input type="file" accept=".json" id="import-file" style="display:none" onchange="importData(event)">
+      </label>
+      <button class="btn btn-ghost btn-full" onclick="closeModal('modal-backup')">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-cancel-audit">
+  <div class="modal">
+    <div class="modal-title">Cancelar auditoria?</div>
+    <div class="modal-body">As respostas desta sessão serão perdidas. O cadastro permanece salvo.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-cancel-audit')">Continuar</button>
+      <button class="btn btn-danger" onclick="cancelAudit()">Cancelar auditoria</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal">
+    <div class="modal-title">Remover adolescente?</div>
+    <div class="modal-body">Todo o histórico será excluído permanentemente.</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-delete')">Voltar</button>
+      <button class="btn btn-danger" onclick="confirmDelete()">Remover</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-settings">
+  <div class="modal">
+    <div class="modal-title">Configurações</div>
+    <div class="form-group">
+      <label class="form-label">Seu nome</label>
+      <input class="form-input" id="settings-name" placeholder="Como quer ser chamado(a)?">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('modal-settings')">Fechar</button>
+      <button class="btn btn-grad" onclick="saveSettings()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+
+const FAQS = [
+  {q:"O que é maturidade digital?", a:"Maturidade digital é a capacidade de um adolescente de usar ferramentas de IA de forma crítica, ética e segura — planejando suas interações, verificando as informações recebidas e mantendo sua autoria. O Mirai mede essa capacidade em 5 níveis, do uso caótico à autonomia plena."},
+  {q:"Preciso entender de tecnologia para usar o Mirai?", a:"Não. O Mirai foi projetado para pais e professores sem formação técnica. Todas as perguntas da auditoria usam linguagem do dia a dia. Você não vai ver fórmulas ou termos técnicos durante o uso — só no relatório, se quiser se aprofundar."},
+  {q:"O que é o 'Grau de Segurança S'?", a:"O Grau S é o resultado central do Mirai. Ele combina a maturidade do adolescente (M) com o risco da ferramenta no contexto avaliado (R): S = M − R. Um S positivo alto indica que o adolescente tem capacidade suficiente para operar com segurança naquele domínio. Um S negativo indica que o risco supera a capacidade atual — e que supervisão é necessária."},
+  {q:"Meus dados ficam onde?", a:"Todos os dados ficam salvos localmente no seu navegador (localStorage). Nada é enviado para servidores. Isso significa que se você trocar de dispositivo ou limpar o cache do navegador, os dados são perdidos. Em breve: exportação de dados para backup."},
+  {q:"Com que frequência devo fazer a auditoria?", a:"Depende do nível atual: Níveis 1–2 exigem auditoria mensal. Nível 3–4, trimestral. Nível 5, semestral. O Mirai informa o ciclo recomendado em cada relatório."},
+  {q:"O que é o Nível de Maturidade e como ele é calculado?", a:"O Mirai avalia três dimensões: Técnica (qualidade do planejamento), Ética (privacidade e autoria) e Crítica (verificação de informações). Cada dimensão recebe uma nota de 0 a 100%, e o peso de cada uma varia por faixa etária — baseado nas teorias de desenvolvimento cognitivo de Piaget e Vygotsky. A nota final determina o nível de 1 (Caótico) a 5 (Otimizado)."},
+  {q:"O que fazer se meu filho se recusar a deixar eu ver as sessões?", a:"Resistência é natural. Recomendamos começar pela conversa, não pela auditoria: mostre o relatório de outra pessoa como exemplo, explique que o objetivo não é punir mas acompanhar. O Mirai fornece sugestões de abordagem em cada relatório para facilitar esse diálogo."},
+];
+
+const ONBOARD_STEPS = [
+  {
+    label:"Passo 1 de 4 — Quem é você?", title:"Bem-vindo(a) ao Mirai 未来",
+    desc:"Para personalizar sua experiência, nos conte como você se relaciona com o adolescente que vai acompanhar.",
+    options:[
+      {val:'pai_mae',    main:"Sou pai ou mãe",       sub:"Quero acompanhar meu filho(a) em casa"},
+      {val:'professor',  main:"Sou professor(a)",      sub:"Quero avaliar alunos da minha turma"},
+      {val:'coordenador',main:"Sou coordenador(a)",   sub:"Quero implementar na escola"},
+      {val:'outro',      main:"Outra relação",          sub:"Familiar, terapeuta, tutor ou outro"},
+    ]
+  },
+  {
+    label:"Passo 2 de 4 — Identificação segura", title:"Como vamos chamar este adolescente?",
+    desc:"Use um apelido ou identificação que não revele dados pessoais reais. Isso protege a privacidade do menor.",
+    type:"form"
+  },
+  {
+    label:"Passo 3 de 4 — Uma descoberta", title:"Qual é o momento dele com a IA?",
+    desc:"Escolha a descrição que mais combina com o que você observa agora. Isso é apenas um ponto de partida — a primeira auditoria vai calibrar o nível real com precisão.",
+    hint:"💡 Cada nível tem um nome em japonês que representa a jornada. Não se preocupe em acertar — é uma estimativa inicial.",
+    options:[
+      {val:1, main:"🌱 Hajimari — O Início",   sub:"Usa a IA de forma impulsiva, sem pensar. Pergunta e aceita tudo como verdade."},
+      {val:2, main:"🔥 Mezame — O Despertar", sub:"Já tem objetivos claros, mas ainda depende da IA para tudo. Raramente questiona."},
+      {val:3, main:"🗺️ Tabi — A Jornada",     sub:"Planeja antes de usar. Às vezes verifica as informações, mas não sempre."},
+      {val:4, main:"🛡️ Chikara — O Domínio",  sub:"Verifica fontes sistematicamente. Mantém o controle sobre o que produz."},
+    ]
+  },
+  {
+    label:"Passo 4 de 4 — Pronto!", title:"Perfil criado ✓",
+    desc:"A primeira auditoria vai confirmar e ajustar o nível estimado. São apenas 12 perguntas sobre uma sessão recente que você observou.",
+    type:"final"
+  }
+];
+
+const QUESTIONS = [
+  {id:'domain',phase:'Contexto',pc:'var(--violet)',pb:'rgba(168,85,247,.12)',
+   q:'Qual foi o tipo de tarefa da sessão?',
+   d:'Escolha o que melhor descreve o que o adolescente fazia com a IA.',
+   opts:[
+     {v:'investigativa',m:'🔍 Pesquisa e estudo',s:'Busca de informações, resumos, trabalho escolar'},
+     {v:'criativa',m:'✍️ Criação e expressão',s:'Redação, texto criativo, roteiro, projeto artístico'},
+     {v:'logica',m:'⚙️ Lógica e programação',s:'Código, matemática, algoritmo, raciocínio técnico'},
+   ],dim:'ctx',w:0},
+  {id:'plan1',phase:'Planejar (P)',pc:'var(--cyan)',pb:'rgba(0,229,255,.1)',
+   q:'Como o adolescente começou a sessão?',
+   d:'O primeiro prompt revela se houve planejamento ou improviso.',
+   opts:[
+     {v:1,m:'Pergunta curta e genérica',s:'Ex: "Quem foi Dom Pedro I?" — sem contexto'},
+     {v:3,m:'Pergunta com objetivo claro',s:'Ex: "Faça um resumo sobre X para meu trabalho"'},
+     {v:5,m:'Prompt estruturado com contexto',s:'Ex: "Atue como... Sou aluno do... no formato..."'},
+   ],dim:'tec',w:1},
+  {id:'plan2',phase:'Planejar (P)',pc:'var(--cyan)',pb:'rgba(0,229,255,.1)',
+   q:'O prompt foi adaptado ao contexto pessoal?',
+   d:'Prompts com detalhes específicos da situação indicam planejamento genuíno.',
+   opts:[
+     {v:1,m:'Não — foi genérico',s:'Poderia ser feito por qualquer pessoa'},
+     {v:3,m:'Parcialmente — mencionou o objetivo',s:'Citou o propósito mas sem contexto pessoal'},
+     {v:5,m:'Sim — incluiu contexto pessoal',s:'Mencionou nível escolar, exigência, objetivo específico'},
+   ],dim:'tec',w:1},
+  {id:'do1',phase:'Executar (D)',pc:'var(--violet)',pb:'rgba(168,85,247,.1)',
+   q:'Como foi a interação ao longo da conversa?',
+   d:'A forma de conduzir o diálogo revela se há método ou improviso.',
+   opts:[
+     {v:1,m:'Perguntas soltas, sem conexão',s:'Cada mensagem tratada como evento isolado'},
+     {v:3,m:'Seguiu o fio, ajustou o que não gostou',s:'Houve progressão, mas de forma intuitiva'},
+     {v:5,m:'Refinamento intencional dos prompts',s:'Ajustou sistematicamente com base nas respostas'},
+   ],dim:'tec',w:1},
+  {id:'do2',phase:'Executar (D)',pc:'var(--violet)',pb:'rgba(168,85,247,.1)',
+   q:'O adolescente manteve a autoria do resultado?',
+   d:'Delegar tudo à IA é diferente de usar a IA como ferramenta.',
+   opts:[
+     {v:1,m:'Pediu o trabalho pronto',s:'Solicitou a entrega completa sem participação autoral'},
+     {v:3,m:'Usou como base e modificou',s:'Aproveitou o conteúdo mas fez ajustes próprios'},
+     {v:5,m:'Preservou a autoria ativamente',s:'Usou a IA como andaime, não como substituto'},
+   ],dim:'eti',w:1},
+  {id:'check1',phase:'Verificar (C)',pc:'var(--amber)',pb:'rgba(251,191,36,.1)',
+   q:'O adolescente verificou as informações da IA?',
+   d:'Esta é a fase mais crítica — a linha entre o Nível 3 e o Nível 4.',
+   opts:[
+     {v:1,m:'Não verificou nada',s:'Aceitou tudo como correto'},
+     {v:2,m:'Pediu à própria IA para revisar',s:'Ex: "Você tem certeza?" — isso não é verificação real'},
+     {v:4,m:'Ficou desconfiado de alguns pontos',s:'Questionou partes, mas sem fonte externa'},
+     {v:5,m:'Consultou fontes externas independentes',s:'Buscou livro, site oficial ou outra fonte'},
+   ],dim:'cri',w:2},
+  {id:'check2',phase:'Verificar (C)',pc:'var(--amber)',pb:'rgba(251,191,36,.1)',
+   q:'Ao encontrar informação suspeita, o que fez?',
+   d:'A reação a possíveis erros da IA revela o grau de autonomia crítica.',
+   opts:[
+     {v:1,m:'Não identificou nenhum problema',s:'Aceitou tudo normalmente'},
+     {v:2,m:'Ignorou a dúvida e seguiu',s:'Percebeu algo estranho mas não agiu'},
+     {v:4,m:'Corrigiu o texto manualmente',s:'Ajustou o conteúdo que pareceu errado'},
+     {v:5,m:'Confrontou a IA com fonte externa',s:'Ex: "O livro X diz Y, mas você disse Z"'},
+   ],dim:'cri',w:2},
+  {id:'act1',phase:'Agir (A)',pc:'var(--green)',pb:'rgba(52,211,153,.1)',
+   q:'O adolescente reconheceu algum padrão de erro?',
+   d:'Identificar padrões recorrentes é o início da melhoria contínua.',
+   opts:[
+     {v:1,m:'Não percebeu nenhum padrão',s:'Tratou cada sessão como evento isolado'},
+     {v:3,m:'Percebeu um erro pontual',s:'Identificou um erro específico desta sessão'},
+     {v:5,m:'Reconheceu um padrão recorrente',s:'Notou que a IA erra neste tipo e ajustou a abordagem'},
+   ],dim:'cri',w:1},
+  {id:'act2',phase:'Agir (A)',pc:'var(--green)',pb:'rgba(52,211,153,.1)',
+   q:'Algo vai mudar para a próxima sessão?',
+   d:'A fase Agir transforma um erro esporádico em aprendizado processual.',
+   opts:[
+     {v:1,m:'Não — a sessão simplesmente terminou',s:'Sem reflexão sobre como melhorar'},
+     {v:3,m:'Disse que vai "tomar mais cuidado"',s:'Reconhecimento genérico sem mudança de método'},
+     {v:5,m:'Formulou uma regra específica',s:'Ex: "Da próxima vez vou pedir a fonte antes"'},
+   ],dim:'tec',w:1},
+  {id:'priv1',phase:'Conformidade',pc:'var(--red)',pb:'rgba(248,113,113,.1)',
+   q:'Foram compartilhados dados pessoais nos prompts?',
+   d:'Nome, endereço, escola ou dados de terceiros são protegidos pela LGPD.',
+   opts:[
+     {v:1,m:'Sim — dados identificáveis inseridos',s:'Nome, endereço, escola, dados de colegas — ALERTA'},
+     {v:3,m:'Dados parciais não sensíveis',s:'Cidade, faixa etária — risco moderado'},
+     {v:5,m:'Não — sem dados pessoais',s:'Prompts sem informações identificáveis'},
+   ],dim:'eti',w:2},
+  {id:'priv2',phase:'Conformidade',pc:'var(--red)',pb:'rgba(248,113,113,.1)',
+   q:'Se foi entregue algum trabalho, houve declaração do uso da IA?',
+   d:'Transparência sobre uso de IA é requisito de integridade acadêmica.',
+   opts:[
+     {v:1,m:'Não — entregou como autoria própria',s:'Sem declaração'},
+     {v:3,m:'Não se aplica',s:'A sessão não gerou entrega para terceiros'},
+     {v:5,m:'Sim — declarou o uso da IA',s:'Indicou como a IA foi utilizada no processo'},
+   ],dim:'eti',w:1},
+  {id:'risco_p',phase:'Risco',pc:'var(--pink)',pb:'rgba(244,114,182,.1)',
+   q:'Qual a probabilidade de erro da IA neste tipo de tarefa?',
+   d:'Considere o domínio e o repertório do adolescente para identificar erros.',
+   opts:[
+     {v:1,m:'Baixa — domínio bem documentado',s:'A IA costuma ser confiável aqui'},
+     {v:3,m:'Média — histórico misto',s:'Às vezes erra, o adolescente consegue perceber'},
+     {v:5,m:'Alta — domínio técnico ou emergente',s:'A IA erra bastante e é difícil identificar'},
+   ],dim:'ris',w:0},
+  {id:'risco_i',phase:'Risco',pc:'var(--pink)',pb:'rgba(244,114,182,.1)',
+   q:'Qual seria o impacto de um erro não detectado?',
+   d:'Considere as consequências reais se o adolescente tivesse aceitado uma informação errada.',
+   opts:[
+     {v:1,m:'Baixo — sem consequências práticas',s:'Um erro aqui não causaria dano real'},
+     {v:3,m:'Moderado — trabalho ou aprendizado afetado',s:'Poderia afetar nota ou aprendizado'},
+     {v:5,m:'Alto — saúde, privacidade ou questão jurídica',s:'Consequências sérias e difíceis de reverter'},
+   ],dim:'ris',w:0},
+];
+
+const LEVEL_INFO = {
+  1:{label:'Hajimari · Início', en:'Caótico',    color:'var(--red)',   bg:'rgba(248,113,113,.15)'},
+  2:{label:'Mezame · Despertar',en:'Reativo',    color:'var(--amber)', bg:'rgba(251,191,36,.15)'},
+  3:{label:'Tabi · Jornada',    en:'Definido',   color:'var(--violet)',bg:'rgba(168,85,247,.15)'},
+  4:{label:'Chikara · Domínio', en:'Gerenciado', color:'var(--cyan)',  bg:'rgba(0,229,255,.15)'},
+  5:{label:'Kansei · Completude',en:'Otimizado', color:'var(--green)', bg:'rgba(52,211,153,.15)'},
+};
+const VINCULOS = {pai_mae:'Família',professor:'Educador',coordenador:'Coordenação',outro:'Outro'};
+
+// ══════════════════════════════════════
+// STATE & STORAGE
+// ══════════════════════════════════════
+
+let ST = {adolescentes:[],auditorName:'',currentId:null,audit:{ans:{},q:0},deleteTarget:null,onboard:{}};
+
+function save(){localStorage.setItem('mirai_v1',JSON.stringify(ST));}
+function load(){const d=localStorage.getItem('mirai_v1');if(d)ST=JSON.parse(d);}
+
+// ══════════════════════════════════════
+// SCREENS
+// ══════════════════════════════════════
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function showLanding(){showScreen('screen-landing');}
+function goToApp(){renderApp();showScreen('screen-app');}
+
+// ══════════════════════════════════════
+// LANDING INTERACTIONS
+// ══════════════════════════════════════
+
+function scrollTo(sel){document.querySelector(sel)?.scrollIntoView({behavior:'smooth'});}
+
+function switchBenefit(id,btn){
+  document.querySelectorAll('.benefit-content').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.benefit-tab').forEach(x=>x.classList.remove('active'));
+  document.getElementById('benefit-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// FAQ
+document.getElementById('faq-list').innerHTML = FAQS.map((f,i)=>`
+  <div class="faq-item" id="faq-${i}">
+    <button class="faq-q" onclick="toggleFaq(${i})">
+      <span class="faq-q-text">${f.q}</span>
+      <span class="faq-icon">+</span>
+    </button>
+    <div class="faq-a">${f.a}</div>
+  </div>`).join('');
+
+function toggleFaq(i){
+  const el=document.getElementById('faq-'+i);
+  el.classList.toggle('open');
+}
+
+// ══════════════════════════════════════
+// ONBOARDING
+// ══════════════════════════════════════
+
+let obStep = 0;
+ST.onboard = {};
+
+function startOnboarding(){obStep=0;ST.onboard={};renderOnboard();showScreen('screen-onboard');}
+
+function renderOnboard(){
+  const s=ONBOARD_STEPS[obStep];
+  const pct=Math.round((obStep/ONBOARD_STEPS.length)*100);
+  let html=`
+    <div class="onboard-progress"><div class="onboard-progress-fill" style="width:${pct}%"></div></div>
+    <div class="onboard-step-label">${s.label}</div>
+    <div class="onboard-title">${s.title}</div>
+    <div class="onboard-desc">${s.desc}</div>`;
+
+  if(s.type==='form'){
+    html+=`
+      <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:13px;line-height:1.6">
+        <div style="font-weight:700;color:var(--amber);margin-bottom:4px">🔒 Use um apelido — não o nome real</div>
+        <div style="color:var(--text2)">Para proteger a privacidade do menor, evite usar nome e sobrenome completos. Exemplos: <em>"Filho mais novo"</em>, <em>"Aluno B3"</em>, <em>"João"</em> (primeiro nome apenas), <em>"Turma 9A #02"</em>.</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Apelido ou identificação *</label><input class="form-input" id="ob-nome" placeholder="Ex: Filho mais velho, Aluno B3..." value="${ST.onboard.nome||''}"><div class="form-hint">Não use nome completo. Apenas o suficiente para você identificar.</div></div>
+        <div class="form-group"><label class="form-label">Faixa etária *</label><select class="form-select" id="ob-idade">
+          <option value="">Selecione</option>
+          ${[11,12,13,14,15,16,17,18].map(a=>`<option value="${a}" ${ST.onboard.idade==a?'selected':''}>${a} anos</option>`).join('')}
+        </select></div>
+      </div>
+      <div class="form-group"><label class="form-label">Vínculo</label><select class="form-select" id="ob-vinculo">
+        <option value="pai_mae" ${ST.onboard.vinculo==='pai_mae'?'selected':''}>Filho(a)</option>
+        <option value="professor" ${ST.onboard.vinculo==='professor'?'selected':''}>Aluno(a)</option>
+        <option value="outro" ${ST.onboard.vinculo==='outro'?'selected':''}>Outro</option>
+      </select></div>`;
+  } else if(s.type==='final'){
+    const nm=ST.onboard.nome||'o adolescente';
+    const lv=ST.onboard.nivel||3;
+    const li=LEVEL_INFO[lv];
+    html+=`
+      <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:20px;margin-bottom:16px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;font-family:'JetBrains Mono',monospace;letter-spacing:.08em">PERFIL CRIADO</div>
+        <div style="font-size:17px;font-weight:700;margin-bottom:10px">${nm}</div>
+        <span class="tag" style="background:${li.bg};color:${li.color};border:1px solid ${li.color}33">N${lv} — ${li.label}</span>
+      </div>
+      <div style="background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.15);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">
+        <div style="font-weight:700;color:var(--cyan);margin-bottom:6px">📋 Sobre o nível estimado</div>
+        O nível <strong>${li.label}</strong> é apenas uma estimativa inicial. A primeira auditoria vai calcular o nível real — e pode ser diferente. <strong>Isso é esperado e normal.</strong>
+      </div>
+      <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text2);line-height:1.7">
+        <div style="font-weight:700;color:var(--green);margin-bottom:6px">🔍 Para a auditoria funcionar bem</div>
+        Você vai responder 12 perguntas sobre uma sessão real que <strong>você observou</strong>. Sentar junto por 15 minutos já é suficiente.
+      </div>`;
+  } else if(s.options){
+    if(s.hint) html+=`<div style="font-size:12px;color:var(--muted);margin-bottom:16px;padding:10px 14px;background:var(--surface2);border-radius:8px">${s.hint}</div>`;
+    const savedVal=obStep===0?ST.onboard.role:ST.onboard.nivel;
+    html+=`<div id="ob-options" class="onboard-options">`;
+    s.options.forEach(o=>{
+      const sel=savedVal===o.val||savedVal==o.val;
+      html+=`<button class="onboard-opt${sel?' selected':''}" data-val='${JSON.stringify(o.val)}'>
+        <div class="opt-dot"></div>
+        <div><div class="opt-main">${o.main}</div><div class="opt-sub">${o.sub}</div></div>
+      </button>`;
+    });
+    html+=`</div>`;
+  }
+
+  const hasSelection=obStep===0?!!ST.onboard.role:obStep===2?!!ST.onboard.nivel:true;
+  const needsSelection=s.options&&!s.type;
+  html+=`<div class="onboard-nav">
+    <button id="ob-back" class="onboard-back" style="${obStep===0?'visibility:hidden':''}">← Voltar</button>
+    <div class="onboard-info" id="ob-info">${s.type==='form'?'Preencha os campos':s.type==='final'?'Tudo pronto!':hasSelection?'Opção selecionada ✓':'Selecione uma opção'}</div>
+    <button class="btn btn-grad btn-sm" id="ob-next" ${needsSelection&&!hasSelection?'disabled':''}>
+      ${s.type==='final'?'Iniciar auditoria →':'Próximo →'}
+    </button>
+  </div>`;
+
+  const card=document.getElementById('onboard-card');
+  card.innerHTML=html;
+
+  // Wire up back button
+  card.querySelector('#ob-back').addEventListener('click',()=>{
+    if(obStep>0){obStep--;renderOnboard();}
+  });
+
+  // Wire up next button
+  card.querySelector('#ob-next').addEventListener('click',obNext);
+
+  // Wire up option selection via event delegation (robust, no inline onclick)
+  const optWrap=card.querySelector('#ob-options');
+  if(optWrap){
+    optWrap.addEventListener('click',function(e){
+      const btn=e.target.closest('.onboard-opt');
+      if(!btn)return;
+      optWrap.querySelectorAll('.onboard-opt').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      let raw=btn.dataset.val;
+      let val;
+      try{val=JSON.parse(raw);}catch(err){val=raw;}
+      if(obStep===0) ST.onboard.role=val;
+      if(obStep===2) ST.onboard.nivel=val;
+      card.querySelector('#ob-next').disabled=false;
+      card.querySelector('#ob-info').textContent='Opção selecionada ✓';
+    });
+  }
+
+  // Form step: always enable next
+  if(s.type==='form') card.querySelector('#ob-next').disabled=false;
+}
+
+function obBack(){if(obStep>0){obStep--;renderOnboard();}}
+
+function obNext(){
+  if(obStep===0){
+    if(!ST.onboard.role){
+      document.getElementById('onboard-card').querySelector('#ob-info').textContent='Selecione uma opção para continuar';
+      return;
+    }
+    document.getElementById('modal-lgpd').classList.add('open');
+    return;
+  }
+  if(obStep===1){
+    const nome=document.getElementById('ob-nome').value.trim();
+    const idade=document.getElementById('ob-idade').value;
+    if(!nome||!idade){alert('Preencha o apelido/identificação e a faixa etária.');return;}
+    ST.onboard.nome=nome;ST.onboard.idade=+idade;
+    ST.onboard.vinculo=document.getElementById('ob-vinculo').value;
+  }
+  if(obStep===ONBOARD_STEPS.length-1){
+    const a={
+      id:'a'+Date.now(),
+      nome:ST.onboard.nome,idade:ST.onboard.idade,
+      vinculo:ST.onboard.vinculo||'pai_mae',
+      nivel:ST.onboard.nivel||3,auditorias:[]
+    };
+    ST.adolescentes.push(a);ST.currentId=a.id;save();
+    startAudit(a.id);return;
+  }
+  obStep++;renderOnboard();
+}
+
+function exportData(){
+  const data=JSON.stringify(ST,null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const d=new Date().toISOString().slice(0,10);
+  a.download=`mirai_backup_${d}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const parsed=JSON.parse(ev.target.result);
+      if(!parsed.adolescentes)throw new Error('Arquivo inválido');
+      ST=parsed;save();
+      closeModal('modal-backup');
+      alert(`Backup restaurado com sucesso! ${ST.adolescentes.length} perfil(s) carregado(s).`);
+      goToApp();
+    } catch(err){
+      alert('Erro ao importar: arquivo inválido ou corrompido.');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ══════════════════════════════════════
+// APP / DASHBOARD
+// ══════════════════════════════════════
+
+function renderApp(){
+  const name=ST.auditorName?`Olá, ${ST.auditorName} 👋`:'Painel de Monitoramento';
+  document.getElementById('app-greeting').textContent=name;
+  document.getElementById('app-user-label').textContent=ST.auditorName||'';
+
+  const total=ST.adolescentes.length;
+  const withA=ST.adolescentes.filter(a=>a.auditorias&&a.auditorias.length>0).length;
+  const avgM=total>0?Math.round(ST.adolescentes.reduce((s,a)=>{
+    const l=a.auditorias&&a.auditorias.length?a.auditorias[a.auditorias.length-1]:null;
+    return s+(l?l.m:0);
+  },0)/total):0;
+  const totalAud=ST.adolescentes.reduce((s,a)=>s+(a.auditorias?a.auditorias.length:0),0);
+
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-card-val" style="color:var(--cyan)">${total}</div><div class="stat-card-label">Adolescentes</div></div>
+    <div class="stat-card"><div class="stat-card-val" style="color:var(--green)">${withA}</div><div class="stat-card-label">Com auditoria</div></div>
+    <div class="stat-card"><div class="stat-card-val" style="color:var(--amber)">${total?avgM+'%':'—'}</div><div class="stat-card-label">Maturidade média</div></div>
+    <div class="stat-card"><div class="stat-card-val" style="color:var(--violet)">${totalAud}</div><div class="stat-card-label">Auditorias realizadas</div></div>`;
+
+  const list=document.getElementById('adol-list');
+  if(!total){
+    list.innerHTML=`<div class="empty-state fade-in">
+      <div class="empty-icon">未来</div>
+      <div class="empty-title">Nenhum perfil ainda</div>
+      <div class="empty-desc">Cadastre o primeiro adolescente para começar a jornada de acompanhamento digital.</div>
+      <button class="btn btn-grad btn-lg" onclick="startOnboarding()">Criar primeiro perfil →</button>
+    </div>`;return;
+  }
+
+  const gradients=['linear-gradient(135deg,var(--cyan),var(--violet))','linear-gradient(135deg,var(--violet),var(--pink))','linear-gradient(135deg,var(--green),var(--cyan))','linear-gradient(135deg,var(--amber),var(--pink))','linear-gradient(135deg,var(--pink),var(--violet))'];
+  list.innerHTML=`<div class="adol-grid fade-in">`+ST.adolescentes.map((a,i)=>{
+    const last=a.auditorias&&a.auditorias.length?a.auditorias[a.auditorias.length-1]:null;
+    const nv=last?last.nivel:a.nivel;
+    const li=LEVEL_INFO[nv];
+    const date=last?new Date(last.date).toLocaleDateString('pt-BR'):'Sem auditoria';
+    const ini=a.nome.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
+    return`<div class="adol-card" onclick="goToResult('${a.id}')">
+      <div class="adol-avatar-wrap">
+        <div class="adol-avatar" style="background:${gradients[i%5]};color:#080B14">${ini}</div>
+        <div><div class="adol-name">${a.nome}</div><div class="adol-meta">${a.idade} anos · ${VINCULOS[a.vinculo]||'—'}</div></div>
+      </div>
+      <span class="tag" style="background:${li.bg};color:${li.color};border:1px solid ${li.color}33">N${nv} — ${li.label}</span>
+      <div class="adol-footer">
+        <div class="adol-audits">${a.auditorias?a.auditorias.length:0} auditoria(s)</div>
+        <div class="adol-date">${date}</div>
+      </div>
+    </div>`;
+  }).join('')+`</div>`;
+}
+
+// ══════════════════════════════════════
+// AUDITORIA
+// ══════════════════════════════════════
+
+function startAudit(id){
+  ST.currentId=id;ST.audit={ans:{},q:0};
+  const a=ST.adolescentes.find(x=>x.id===id);
+  document.getElementById('audit-name').textContent=a.nome;
+  // Show observation instruction card first
+  document.getElementById('audit-phase-label').textContent='Antes de começar';
+  document.getElementById('audit-step-label').textContent='Instruções';
+  document.getElementById('audit-prog-fill').style.width='0%';
+  document.getElementById('audit-body').innerHTML=`
+    <div class="q-card fade-in">
+      <div class="q-phase" style="color:var(--cyan);background:rgba(0,229,255,.1)">Checklist de preparação</div>
+      <div class="q-title">Você observou uma sessão real?</div>
+      <div class="q-desc">A auditoria funciona porque você responde com base no que <strong>realmente aconteceu</strong> — não no que imagina ou no que o adolescente disse que fez.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        ${[
+          {icon:'👁',text:'Você assistiu à sessão presencialmente <strong>ou</strong> teve acesso ao histórico de chat?'},
+          {icon:'📱',text:'Você consegue lembrar (ou ver agora) como o adolescente formulou as perguntas para a IA?'},
+          {icon:'🔍',text:'Você sabe se ele verificou as respostas em fontes externas ou aceitou tudo diretamente?'},
+        ].map(c=>`<div style="display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+          <span style="font-size:18px;flex-shrink:0">${c.icon}</span>
+          <span style="font-size:13px;color:var(--text2);line-height:1.6">${c.text}</span>
+        </div>`).join('')}
+      </div>
+      <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text2);line-height:1.7">
+        <div style="font-weight:700;color:var(--amber);margin-bottom:4px">⚠ Se você não observou ainda</div>
+        Pause aqui. Observe uma sessão real primeiro — sentar junto por 15 minutos já é suficiente. Auditorias baseadas em suposições geram resultados que não refletem a realidade.
+      </div>
+    </div>`;
+  document.getElementById('btn-prev').style.display='none';
+  const nb=document.getElementById('btn-next');
+  nb.disabled=false;
+  nb.textContent='Já observei — iniciar auditoria →';
+  nb.onclick=()=>{nb.textContent='Próxima →';nb.onclick=nextQ;renderQ(0);};
+  document.getElementById('audit-nav-info').textContent='Confirme que observou uma sessão real';
+  showScreen('screen-audit');
+}
+
+function renderQ(idx){
+  const q=QUESTIONS[idx];
+  const pct=Math.round((idx/QUESTIONS.length)*100);
+  document.getElementById('audit-phase-label').textContent='Fase: '+q.phase;
+  document.getElementById('audit-step-label').textContent=`Pergunta ${idx+1} de ${QUESTIONS.length}`;
+  document.getElementById('audit-prog-fill').style.width=pct+'%';
+
+  const saved=ST.audit.ans[q.id];
+  document.getElementById('audit-body').innerHTML=`
+    <div class="q-card fade-in">
+      <div class="q-phase" style="color:${q.pc};background:${q.pb}">${q.phase}</div>
+      <div class="q-title">${q.q}</div>
+      <div class="q-desc">${q.d}</div>
+      <div class="q-options">
+        ${q.opts.map(o=>`
+          <button class="q-opt ${saved===o.v?'sel':''}" onclick="selectQ('${q.id}',${JSON.stringify(o.v)},this)">
+            <div class="q-dot"></div>
+            <div><div class="q-opt-main">${o.m}</div><div class="q-opt-sub">${o.s}</div></div>
+          </button>`).join('')}
+      </div>
+    </div>`;
+
+  document.getElementById('btn-prev').style.display=idx>0?'inline-flex':'none';
+  const nb=document.getElementById('btn-next');
+  nb.disabled=saved===undefined;
+  nb.textContent=idx===QUESTIONS.length-1?'Ver resultado →':'Próxima →';
+  document.getElementById('audit-nav-info').textContent=saved!==undefined?'Resposta registrada ✓':'Selecione uma opção';
+}
+
+function selectQ(id,val,btn){
+  document.querySelectorAll('.q-opt').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  ST.audit.ans[id]=val;
+  document.getElementById('btn-next').disabled=false;
+  document.getElementById('audit-nav-info').textContent='Resposta registrada ✓';
+}
+function nextQ(){const i=ST.audit.q;if(i>=QUESTIONS.length-1){finishAudit();return;}ST.audit.q=i+1;renderQ(i+1);}
+function prevQ(){const i=ST.audit.q;if(i<=0)return;ST.audit.q=i-1;renderQ(i-1);}
+function cancelAudit(){closeModal('modal-cancel-audit');goToApp();}
+function newAudit(){if(ST.currentId)startAudit(ST.currentId);}
+
+// ══════════════════════════════════════
+// CÁLCULO
+// ══════════════════════════════════════
+
+function finishAudit(){
+  const ans=ST.audit.ans;
+  const adol=ST.adolescentes.find(x=>x.id===ST.currentId);
+  const idade=adol.idade;
+  let w={tec:.5,eti:.3,cri:.2};
+  if(idade>=14&&idade<=15)w={tec:.3,eti:.4,cri:.3};
+  if(idade>=16)w={tec:.2,eti:.3,cri:.5};
+
+  const dims={tec:[],eti:[],cri:[]};
+  QUESTIONS.forEach(q=>{
+    if(q.dim==='ris'||q.dim==='ctx')return;
+    const v=ans[q.id];if(v===undefined)return;
+    for(let i=0;i<q.w;i++)dims[q.dim].push(v);
+  });
+
+  function norm(arr){if(!arr.length)return 0;const n=arr.length,s=arr.reduce((a,b)=>a+b,0);return Math.round(((s-n)/(4*n))*100);}
+  const mT=norm(dims.tec),mE=norm(dims.eti),mC=norm(dims.cri);
+  const mTotal=Math.round(mT*w.tec+mE*w.eti+mC*w.cri);
+  const P=ans['risco_p']||3,I=ans['risco_i']||3,R=P*I,S=mTotal-R;
+  const nivel=mTotal<=20?1:mTotal<=40?2:mTotal<=60?3:mTotal<=80?4:5;
+
+  const aud={id:'aud'+Date.now(),date:new Date().toISOString(),domain:ans['domain']||'investigativa',
+    m:mTotal,mT,mE,mC,p:P,i:I,r:R,s:S,nivel,weights:w,answers:{...ans}};
+  adol.auditorias=adol.auditorias||[];
+  adol.auditorias.push(aud);adol.nivel=nivel;save();
+  renderResult(adol,aud);showScreen('screen-result');
+}
+
+// ══════════════════════════════════════
+// RESULTADO
+// ══════════════════════════════════════
+
+function goToResult(id){
+  ST.currentId=id;
+  const a=ST.adolescentes.find(x=>x.id===id);
+  if(!a.auditorias||!a.auditorias.length){startAudit(id);return;}
+  renderResult(a,a.auditorias[a.auditorias.length-1]);showScreen('screen-result');
+}
+
+function renderResult(adol,aud){
+  const li=LEVEL_INFO[aud.nivel];
+  const DOM={investigativa:'Pesquisa e Estudo',criativa:'Criação e Expressão',logica:'Lógica e Programação'};
+
+  document.getElementById('res-title').textContent=adol.nome;
+  document.getElementById('res-meta').textContent=`${adol.idade} anos · ${VINCULOS[adol.vinculo]||'—'} · ${new Date(aud.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}`;
+
+  // S Ring
+  const ring=document.getElementById('s-ring');
+  let rc=aud.s>=60?'var(--green)':aud.s>=30?'var(--amber)':'var(--red)';
+  ring.style.borderColor=rc;ring.style.boxShadow=`0 0 30px ${rc}44`;
+  document.getElementById('s-val').style.color=rc;
+  document.getElementById('s-val').textContent=aud.s;
+
+  // Alert
+  let alertHtml='';
+  if(aud.answers['priv1']===1)
+    alertHtml+=`<div class="alert alert-red"><div class="alert-icon">🚫</div><div><strong>Violação de privacidade detectada (LGPD Art. 14):</strong> Dados pessoais identificáveis foram inseridos em prompts. Supervisão obrigatória imediata.</div></div>`;
+  if(aud.s<0)
+    alertHtml+=`<div class="alert alert-red"><div class="alert-icon">🚫</div><div><strong>Bloqueio de Autonomia:</strong> O risco supera a maturidade atual. Supervisão direta nas próximas sessões.</div></div>`;
+  else if(aud.s<30)
+    alertHtml+=`<div class="alert alert-red"><div class="alert-icon">🔴</div><div><strong>Risco Alto:</strong> Scaffolding obrigatório até consolidação do Nível 4.</div></div>`;
+  else if(aud.s<60)
+    alertHtml+=`<div class="alert alert-amber"><div class="alert-icon">⚠</div><div><strong>Risco Moderado:</strong> Controles ativos. Auditoria mensal recomendada.</div></div>`;
+  else
+    alertHtml+=`<div class="alert alert-green"><div class="alert-icon">✓</div><div><strong>Processo seguro:</strong> Continue com o ciclo de monitoramento regular.</div></div>`;
+
+  // RESUMO
+  document.getElementById('tab-r-resumo').innerHTML=alertHtml+`
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Maturidade (M)</div>
+        <div class="metric-val" style="background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${aud.m}%</div>
+        <div class="metric-desc">N${aud.nivel} — ${li.label}</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Risco (R = P × I)</div>
+        <div class="metric-val" style="color:var(--red)">${aud.r}</div>
+        <div class="metric-desc">P=${aud.p} × I=${aud.i} · ${aud.r<=4?'Baixo':aud.r<=12?'Médio':aud.r<=19?'Alto':'Crítico'}</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Domínio avaliado</div>
+        <div style="font-size:16px;font-weight:700;margin-top:6px">${DOM[aud.domain]||'—'}</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Próxima auditoria</div>
+        <div style="font-size:16px;font-weight:700;margin-top:6px">${aud.nivel<=2?'Mensal':aud.nivel<=4?'Trimestral':'Semestral'}</div>
+        <div class="metric-desc">${aud.nivel<=2?'Monitoramento intensivo':aud.nivel<=4?'Revisão periódica':'Supervisão qualificada'}</div>
+      </div>
+    </div>`;
+
+  // DIMENSÕES
+  document.getElementById('tab-r-dims').innerHTML=`
+    <div class="glass-bright" style="padding:24px;margin-bottom:16px">
+      <div class="section-label" style="margin-bottom:20px">Pontuação por dimensão</div>
+      <div class="dim-row"><span class="dim-name">Técnica</span><div class="dim-track"><div class="dim-fill" style="width:${aud.mT}%;background:var(--cyan)"></div></div><span class="dim-pct">${aud.mT}%</span></div>
+      <div class="dim-row"><span class="dim-name">Ética</span><div class="dim-track"><div class="dim-fill" style="width:${aud.mE}%;background:var(--violet)"></div></div><span class="dim-pct">${aud.mE}%</span></div>
+      <div class="dim-row"><span class="dim-name">Crítica</span><div class="dim-track"><div class="dim-fill" style="width:${aud.mC}%;background:var(--green)"></div></div><span class="dim-pct">${aud.mC}%</span></div>
+    </div>
+    <div class="glass-bright" style="padding:24px">
+      <div class="section-label" style="margin-bottom:12px">Fórmula calculada</div>
+      <pre style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);line-height:1.9">M(Técnica) = ${aud.mT}%  × ${aud.weights.tec} = ${Math.round(aud.mT*aud.weights.tec)}
+M(Ética)   = ${aud.mE}%  × ${aud.weights.eti} = ${Math.round(aud.mE*aud.weights.eti)}
+M(Crítica) = ${aud.mC}%  × ${aud.weights.cri} = ${Math.round(aud.mC*aud.weights.cri)}
+─────────────────────────
+M_total = ${aud.m}%
+R = P(${aud.p}) × I(${aud.i}) = ${aud.r}
+S = ${aud.m} - ${aud.r} = ${aud.s}</pre>
+    </div>`;
+
+  // RECOMENDAÇÕES
+  const recs=buildRecs(aud,adol);
+  document.getElementById('tab-r-recom').innerHTML=recs.map(r=>`
+    <div class="recom-card" style="background:${r.bg};border-color:${r.color}">
+      <div class="recom-tag" style="color:${r.color}">${r.tag}</div>
+      <div class="recom-title">${r.title}</div>
+      <div class="recom-body">${r.body}</div>
+      ${r.actions?`<div class="recom-actions">${r.actions.map(a=>`<div class="recom-action"><span>${a.icon}</span><span>${a.text}</span></div>`).join('')}</div>`:''}
+    </div>`).join('');
+
+  // HISTÓRICO
+  const hist=adol.auditorias||[];
+  const histHTML=hist.length<=1?`<div class="empty-state">
+    <div class="empty-icon">📈</div>
+    <div class="empty-title">Histórico insuficiente</div>
+    <div class="empty-desc">Realize mais auditorias para acompanhar a evolução ao longo do tempo.</div>
+    <button class="btn btn-grad" onclick="newAudit()">+ Nova auditoria</button>
+  </div>`:[...hist].reverse().map((a,i)=>`
+    <div class="hist-item">
+      <div class="hist-date">${new Date(a.date).toLocaleDateString('pt-BR')}</div>
+      <span class="tag" style="background:${LEVEL_INFO[a.nivel].bg};color:${LEVEL_INFO[a.nivel].color};border:1px solid ${LEVEL_INFO[a.nivel].color}33">N${a.nivel}</span>
+      <span style="font-size:12px;color:var(--muted)">${{investigativa:'Pesquisa',criativa:'Criação',logica:'Lógica'}[a.domain]||'—'}</span>
+      <div class="hist-s" style="color:${a.s>=60?'var(--green)':a.s>=30?'var(--amber)':'var(--red)'}">S=${a.s}</div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">M=${a.m}%</span>
+      ${i===0?'<span class="tag tag-cyan" style="font-size:10px;padding:2px 8px">recente</span>':''}
+    </div>`).join('');
+
+  document.getElementById('tab-r-hist').innerHTML=histHTML+`
+    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm" onclick="newAudit()">+ Nova auditoria</button>
+      <button class="btn btn-danger btn-sm" onclick="promptDelete('${adol.id}')">Remover perfil</button>
+    </div>`;
+}
+
+function buildRecs(aud,adol){
+  const recs=[];
+  if(aud.answers['priv1']===1){
+    recs.push({tag:'🚫 AÇÃO IMEDIATA',color:'var(--red)',bg:'rgba(248,113,113,.1)',
+      title:'Violação de privacidade — intervenção necessária agora',
+      body:`${adol.nome} inseriu dados pessoais identificáveis em um prompt, violando o Art. 14 da LGPD. Esta é a prioridade absoluta.`,
+      actions:[
+        {icon:'🔒',text:'Conversar sobre privacidade digital: nenhum dado pessoal em prompts'},
+        {icon:'👁',text:'Supervisionar as próximas 3 sessões presencialmente'},
+        {icon:'📋',text:'Revisar sessões anteriores para verificar outras violações'}
+      ]});
+  }
+  const scaff={
+    1:{tag:'🌱 Scaffolding — Nível Hajimari',color:'var(--red)',bg:'rgba(248,113,113,.08)',
+      title:'Supervisão direta — construindo os primeiros hábitos',
+      body:`${adol.nome} está no início da jornada. O foco agora é criar os hábitos básicos: ter um objetivo antes de começar e nunca aceitar uma resposta sem ao menos ler com atenção.`,
+      actions:[{icon:'📝',text:'Sentar junto nas primeiras sessões e modelar o comportamento correto'},{icon:'🎯',text:'Ensinar: "Para quê estou usando a IA agora?"'},{icon:'📅',text:'Auditoria mensal'}]},
+    2:{tag:'🔥 Scaffolding — Nível Mezame',color:'var(--amber)',bg:'rgba(251,191,36,.08)',
+      title:'Introduzir planejamento — do propósito ao método',
+      body:`${adol.nome} já tem clareza de propósito. O próximo passo é aprender a estruturar prompts com Contexto + Tarefa + Formato.`,
+      actions:[{icon:'📋',text:'Apresentar o modelo de prompt estruturado com exemplos práticos'},{icon:'✏️',text:'Pedir que planeje o primeiro prompt antes de abrir o chat'},{icon:'📅',text:'Auditoria mensal'}]},
+    3:{tag:'🗺️ Desenvolvimento — Nível Tabi',color:'var(--violet)',bg:'rgba(168,85,247,.08)',
+      title:'Desenvolver verificação sistemática',
+      body:`${adol.nome} planeja bem. O salto para o Nível 4 exige o hábito de verificar com fontes externas — não só quando a resposta parece estranha, mas como rotina.`,
+      actions:[{icon:'🔍',text:'Combinar que toda pesquisa tem ao menos uma fonte externa consultada'},{icon:'📚',text:'Apresentar fontes confiáveis para o domínio mais frequente'},{icon:'📅',text:'Auditoria trimestral'}]},
+    4:{tag:'🛡️ Manutenção — Nível Chikara',color:'var(--cyan)',bg:'rgba(0,229,255,.08)',
+      title:'Consolidar e preparar para o Nível 5',
+      body:`${adol.nome} demonstra controles robustos. O foco é manter a consistência em novos domínios e preparar o Teste de Integridade.`,
+      actions:[{icon:'🔄',text:'Aplicar Teste de Integridade na próxima auditoria'},{icon:'🌐',text:'Em domínio novo, tratar como Nível 1 até calibrar'},{icon:'📅',text:'Auditoria trimestral'}]},
+    5:{tag:'✨ Excelência — Nível Kansei',color:'var(--green)',bg:'rgba(52,211,153,.08)',
+      title:'Autonomia consolidada — supervisão qualificada',
+      body:`${adol.nome} internalizou plenamente as funções de auditoria. Monitoramento de projetos complexos e novos domínios.`,
+      actions:[{icon:'🎯',text:'Desafios de alta complexidade com julgamento crítico avançado'},{icon:'📅',text:'Auditoria semestral'}]},
+  };
+  recs.push(scaff[aud.nivel]);
+
+  const {mT:t,mE:e,mC:c}=aud;
+  const weak=t<=e&&t<=c?'tec':e<=t&&e<=c?'eti':'cri';
+  const dimR={
+    tec:{tag:'📊 Foco: Dimensão Técnica',color:'var(--cyan)',bg:'rgba(0,229,255,.06)',title:'Melhorar planejamento e estrutura',body:'Prompt com Contexto + Tarefa + Formato em todas as sessões.',actions:[{icon:'✏️',text:'Usar modelo de prompt estruturado'},{icon:'📋',text:'Revisar exemplos do Nível 3 e 4 antes de começar'}]},
+    eti:{tag:'⚖️ Foco: Dimensão Ética',color:'var(--violet)',bg:'rgba(168,85,247,.06)',title:'Reforçar transparência e autoria',body:'Privacidade, declaração de uso da IA e manutenção da voz autoral.',actions:[{icon:'🔒',text:'Revisar regras de privacidade: nenhum dado pessoal em prompts'},{icon:'✍️',text:'Declarar o uso da IA em todos os trabalhos entregues'}]},
+    cri:{tag:'🔍 Foco: Dimensão Crítica',color:'var(--green)',bg:'rgba(52,211,153,.06)',title:'Desenvolver verificação sistemática',body:'Questionar as respostas da IA e verificar com fontes externas independentes.',actions:[{icon:'📚',text:'Definir uma fonte de referência para cada domínio de uso'},{icon:'❓',text:'Hábito: "Onde está a evidência desta informação?"'}]},
+  };
+  if(aud.m>20)recs.push(dimR[weak]);
+  return recs;
+}
+
+// ══════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════
+
+function switchTab(id,btn){
+  const parent=btn.closest('.screen');
+  parent.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  parent.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');btn.classList.add('active');
+}
+function showModal(id){if(id==='modal-settings')document.getElementById('settings-name').value=ST.auditorName||'';document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+function saveSettings(){ST.auditorName=document.getElementById('settings-name').value.trim();save();closeModal('modal-settings');renderApp();}
+function promptDelete(id){ST.deleteTarget=id;showModal('modal-delete');}
+function confirmDelete(){ST.adolescentes=ST.adolescentes.filter(a=>a.id!==ST.deleteTarget);ST.deleteTarget=null;save();closeModal('modal-delete');goToApp();}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+load();
+</script>
+</body>
+</html>
