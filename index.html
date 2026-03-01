@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mirai 未来 — Maturidade Digital</title>
+<title>MirAi 未来 — Maturidade Digital</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Serif+JP:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -34,7 +34,105 @@
   --grad2: linear-gradient(135deg,#A855F7,#F472B6);
   --grad3: linear-gradient(135deg,#34D399,#00E5FF);
   --grad4: linear-gradient(135deg,#FBBF24,#F472B6);
+  --tooltip-bg:#1A2235; --tooltip-border:#2A3F5F; --tooltip-text:#F0F4FF;
 }
+/* ── TEMA CLARO ───────────────────────────── */
+[data-theme="light"]{
+  --bg:#F5F7FF;--bg2:#EDF0FA;--surface:#FFFFFF;--surface2:#EEF1FA;
+  --border:#D0D8F0;--border2:#B8C4E0;--text:#0F172A;--text2:#374868;--muted:#7B90B8;
+  --cyan:#0284C7;--cyan-dim:rgba(2,132,199,.10);
+  --violet:#7C3AED;--violet-dim:rgba(124,58,237,.10);
+  --pink:#DB2777;--pink-dim:rgba(219,39,119,.10);
+  --green:#059669;--green-dim:rgba(5,150,105,.10);
+  --amber:#D97706;--amber-dim:rgba(217,119,6,.10);
+  --red:#DC2626;--red-dim:rgba(220,38,38,.10);
+  --grad1:linear-gradient(135deg,#0284C7,#7C3AED);
+  --grad2:linear-gradient(135deg,#7C3AED,#DB2777);
+  --grad3:linear-gradient(135deg,#059669,#0284C7);
+  --grad4:linear-gradient(135deg,#D97706,#DB2777);
+  --tooltip-bg:#1E293B;--tooltip-border:#334155;--tooltip-text:#F8FAFC;
+}
+/* ── TEMA DVC (deuteranopia/protanopia safe) ── */
+[data-theme="DVC"]{
+  --bg:#0A0D14;--bg2:#0F1420;--surface:#141B2A;--surface2:#1C2540;
+  --border:#243050;--border2:#2E3D60;--text:#F2F4FF;--text2:#A0AABF;--muted:#58688A;
+  --cyan:#1D85E8;--cyan-dim:rgba(29,133,232,.14);
+  --violet:#6E56CF;--violet-dim:rgba(110,86,207,.14);
+  --pink:#F59E0B;--pink-dim:rgba(245,158,11,.14);
+  --green:#38BDF8;--green-dim:rgba(56,189,248,.14);
+  --amber:#F59E0B;--amber-dim:rgba(245,158,11,.14);
+  --red:#F59E0B;--red-dim:rgba(245,158,11,.14);
+  --grad1:linear-gradient(135deg,#1D85E8,#6E56CF);
+  --grad2:linear-gradient(135deg,#6E56CF,#F59E0B);
+  --grad3:linear-gradient(135deg,#38BDF8,#1D85E8);
+  --grad4:linear-gradient(135deg,#F59E0B,#6E56CF);
+  --tooltip-bg:#1C2540;--tooltip-border:#2E3D60;--tooltip-text:#F2F4FF;
+}
+/* Garante que dark mode seja explícito */
+body:not([data-theme="light"]):not([data-theme="DVC"]) {
+  /* herda o :root — sem necessidade de redefinir */
+}
+/* ── AJUSTES VISUAIS TEMA CLARO ────────────── */
+[data-theme="light"] .topbar,
+[data-theme="light"] .nav{background:rgba(245,247,255,.94)!important;border-color:var(--border)!important;}
+[data-theme="light"] .glass{background:rgba(255,255,255,.85);}
+[data-theme="light"] .glass-bright{background:rgba(255,255,255,.95);}
+[data-theme="light"] .nav-drawer{background:rgba(245,247,255,.98)!important;}
+[data-theme="light"] .hero-orb{opacity:.4;}
+[data-theme="light"] .mini-chat{background:#2a3050;border-color:rgba(0,0,0,.07);}
+[data-theme="light"] .mini-chat *{color:rgba(255,255,255,.95);}
+[data-theme="light"] .mc-user .mc-bubble{background:rgba(255,255,255,.25)!important;color:#fff!important;}
+[data-theme="light"] .mc-user .mc-bubble{background:rgba(0,0,0,.06);color:var(--text2);}
+[data-theme="light"] .adol-card{background:#fff;}
+[data-theme="light"] .stats-bar{background:var(--surface2);}
+[data-theme="light"] .hero-bg{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(2,132,199,.06) 0%,transparent 60%);}
+[data-theme="light"] .hero-card-main{box-shadow:0 0 40px rgba(2,132,199,.08),0 24px 48px rgba(0,0,0,.1);}
+[data-theme="light"] .onboard-card{box-shadow:0 8px 40px rgba(0,0,0,.1);}
+/* texto branco em botões gradiente */
+[data-theme="light"] .btn-grad,[data-theme="DVC"] .btn-grad{color:#fff;}
+[data-theme="light"] .benefit-tab.active,[data-theme="DVC"] .benefit-tab.active{color:#fff;}
+[data-theme="light"] .flow-num,[data-theme="DVC"] .flow-num{color:#fff;}
+[data-theme="light"] .ext-step-num,[data-theme="DVC"] .ext-step-num{color:#fff;}
+[data-theme="light"] .hcm-avatar,[data-theme="DVC"] .hcm-avatar{color:#fff;}
+[data-theme="light"] .depo-avatar,[data-theme="DVC"] .depo-avatar{color:#fff;}
+[data-theme="light"] .adol-avatar,[data-theme="DVC"] .adol-avatar{color:#fff;}
+[data-theme="light"] .opt-dot::after,[data-theme="DVC"] .opt-dot::after{background:#fff;}
+[data-theme="light"] .q-dot::after,[data-theme="DVC"] .q-dot::after{background:#fff;}
+
+/* ── TOOLTIPS ──────────────────────────────── */
+.tooltip-wrap{position:relative;display:inline-flex;align-items:center;gap:3px;cursor:help;}
+.tooltip-trigger{border-bottom:1px dashed var(--muted);}
+.tooltip-icon{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--cyan-dim);color:var(--cyan);font-size:9px;font-weight:800;font-style:normal;border:1px solid rgba(0,229,255,.3);flex-shrink:0;font-family:'Outfit',sans-serif;transition:background .15s;}
+.tooltip-wrap:hover .tooltip-icon{background:var(--cyan);color:#080B14;}
+.tooltip-box{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);background:var(--tooltip-bg);border:1px solid var(--tooltip-border);border-radius:10px;padding:10px 14px;font-size:12px;line-height:1.65;color:var(--tooltip-text);width:230px;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:9999;pointer-events:none;opacity:0;transition:opacity .18s,transform .18s;font-family:'Outfit',sans-serif;font-weight:400;}
+.tooltip-box strong{display:block;font-size:11px;font-weight:700;color:var(--cyan);margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase;}
+.tooltip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--tooltip-border);}
+.tooltip-wrap:hover .tooltip-box{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── THEME SWITCHER ────────────────────────── */
+.theme-switcher{display:flex;gap:4px;align-items:center;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:3px;}
+.theme-btn{padding:5px 9px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;transition:all .18s;white-space:nowrap;}
+.theme-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.theme-btn:hover:not(.active){color:var(--text2);}
+
+/* ── GLOSSÁRIO ─────────────────────────────── */
+.gloss-section{padding:80px 0;background:var(--surface);border-top:1px solid var(--border);}
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:40px;}
+.gloss-card{background:var(--bg);border:1px solid var(--border);border-top:3px solid;border-radius:14px;padding:20px 22px;transition:border-color .2s,transform .2s;}
+.gloss-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.gloss-card-term{font-size:14px;font-weight:800;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.gloss-card-def{font-size:13px;color:var(--text2);line-height:1.7;}
+.gloss-card-source{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:10px;letter-spacing:.06em;}
+.gloss-filter{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}
+.gloss-f-btn{padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;transition:all .18s;}
+.gloss-f-btn.active{background:var(--grad1);color:#fff;border-color:transparent;}
+.gloss-search-wrap{margin-top:16px;max-width:400px;}
+.gloss-search-input{width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;font-size:13px;font-family:'Outfit',sans-serif;color:var(--text);outline:none;transition:border-color .2s;}
+.gloss-search-input::placeholder{color:var(--muted);}
+.gloss-search-input:focus{border-color:var(--cyan);}
+
+/* ── KANBAN: kanji menor e discreto ───────── */
+.kanban-col-kanji{font-family:'Noto Serif JP',serif;font-size:11px!important;font-weight:400!important;opacity:.4;margin-top:2px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden;}
@@ -110,11 +208,127 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 .modal-body{font-size:14px;color:var(--text2);margin-bottom:28px;line-height:1.7;}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;}
 
+/* ── THEME TOGGLE ── */
+.theme-toggle{position:fixed;bottom:80px;right:24px;z-index:99;}
+.theme-toggle-main{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:30px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-family:'Outfit',sans-serif;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.25);}
+.theme-toggle-main:hover{border-color:var(--cyan);color:var(--text);}
+.theme-panel{display:none;position:absolute;bottom:calc(100% + 10px);right:0;background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:8px;min-width:180px;box-shadow:0 8px 32px rgba(0,0,0,.3);}
+.theme-panel.open{display:block;}
+.theme-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text2);transition:all .15s;border:none;background:none;font-family:'Outfit',sans-serif;width:100%;text-align:left;}
+.theme-opt:hover{background:var(--surface2);color:var(--text);}
+.theme-opt.active{color:var(--cyan);background:var(--cyan-dim);}
+
+/* ── TOOLTIP ── */
+.tip{border-bottom:1px dashed var(--cyan);cursor:help;color:inherit;position:relative;display:inline;}
+.tip-box{display:none;position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:12px 16px;font-size:12px;line-height:1.65;color:var(--text2);width:240px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.4);pointer-events:none;text-align:left;white-space:normal;font-family:'Outfit',sans-serif;font-weight:400;}
+.tip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--border2);}
+.tip-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);display:block;margin-bottom:5px;}
+.tip:hover .tip-box,.tip:focus-within .tip-box{display:block;}
+
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
 @keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(0,229,255,.3);}50%{box-shadow:0 0 40px rgba(0,229,255,.6);}}
 @keyframes gradient-shift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 @keyframes spin-slow{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+/* ── TOOLTIP ── */
+.tip{
+  border-bottom:1px dashed var(--cyan);
+  cursor:help;
+  color:inherit;
+  position:relative;
+  display:inline;
+}
+.tip-box{
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 10px);
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:12px 16px;
+  font-size:12px;
+  line-height:1.65;
+  color:var(--text2);
+  width:240px;
+  z-index:9999;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  pointer-events:none;
+  text-align:left;
+  white-space:normal;
+  font-family:'Outfit',sans-serif;
+  font-weight:400;
+  font-style:normal;
+}
+.tip-box::after{
+  content:'';
+  position:absolute;
+  top:100%; left:50%;
+  transform:translateX(-50%);
+  border:6px solid transparent;
+  border-top-color:var(--border2);
+}
+.tip-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  display:block;
+  margin-bottom:5px;
+}
+.tip:hover .tip-box,
+.tip:focus-within .tip-box{ display:block; }/* ── TOOLTIP ── */
+.tip{
+  border-bottom:1px dashed var(--cyan);
+  cursor:help;
+  color:inherit;
+  position:relative;
+  display:inline;
+}
+.tip-box{
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 10px);
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:12px;
+  padding:12px 16px;
+  font-size:12px;
+  line-height:1.65;
+  color:var(--text2);
+  width:240px;
+  z-index:9999;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  pointer-events:none;
+  text-align:left;
+  white-space:normal;
+  font-family:'Outfit',sans-serif;
+  font-weight:400;
+  font-style:normal;
+}
+.tip-box::after{
+  content:'';
+  position:absolute;
+  top:100%; left:50%;
+  transform:translateX(-50%);
+  border:6px solid transparent;
+  border-top-color:var(--border2);
+}
+.tip-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  display:block;
+  margin-bottom:5px;
+}
+.tip:hover .tip-box,
+.tip:focus-within .tip-box{ display:block; }
 @keyframes slide-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 .fade-in{animation:fadeIn .3s ease both;}
 .slide-up{animation:slide-up .5s ease both;}
@@ -510,13 +724,24 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 </style>
 </head>
 <body>
+  <!-- THEME TOGGLE GLOBAL -->
+<div class="theme-toggle" id="theme-toggle">
+  <div class="theme-panel" id="theme-panel">
+    <button class="theme-opt active" id="opt-dark"       onclick="setTheme('dark')">🌙 Escuro</button>
+    <button class="theme-opt"        id="opt-light"      onclick="setTheme('light')">☀️ Claro</button>
+    <button class="theme-opt"        id="opt-DVC" onclick="setTheme('DVC')">👁 DVC</button>
+  </div>
+  <button class="theme-toggle-main" onclick="document.getElementById('theme-panel').classList.toggle('open')">
+    🎨 <span id="theme-label">Escuro</span>
+  </button>
+</div>
 
 <!-- ══════════════ SCREEN: LANDING ══════════════ -->
 <div id="screen-landing" class="screen active">
   <nav class="nav">
     <div class="logo">
       <span class="logo-kanji">未来</span>
-      <span class="logo-text">Mirai</span>
+      <span class="logo-text">MirAi</span>
     </div>
     <div class="nav-links">
       <a href="#problema">O problema</a>
@@ -525,9 +750,10 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
       <a href="#faq">FAQ</a>
       <a href="#" onclick="showScreen('screen-extensao');return false;" style="color:var(--violet)">Extensão</a>
       <a href="#" onclick="showConteudo();return false;" style="color:var(--cyan)">Para adolescentes</a>
-    </div>
+     <a href="#" onclick="showGlossario();return false;" style="color:var(--amber)">Glossário</a>
+</div>
     <div class="nav-cta">
-      <button class="btn btn-grad btn-sm" onclick="entrar()">Entrar</button>
+   <button class="btn btn-grad btn-sm" onclick="entrar()">Entrar</button>
     </div>
     <button class="nav-hamburger" onclick="toggleDrawer()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -540,6 +766,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     <a href="#faq" onclick="closeDrawer()">FAQ</a>
     <a href="#" onclick="showScreen('screen-extensao');closeDrawer();" style="color:var(--violet)">Extensão</a>
     <a href="#" onclick="showConteudo();closeDrawer();" style="color:var(--cyan)">Para adolescentes</a>
+    <a href="#" onclick="showGlossario();closeDrawer();" style="color:var(--amber)">Glossário</a>
     <button onclick="entrar();closeDrawer()">Entrar / Começar →</button>
   </div>
 
@@ -551,10 +778,10 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     <div class="hero-orb orb3"></div>
     <div class="hero-content">
       <div class="slide-up">
-        <span class="hero-kanji">未来 · mirai · futuro</span>
+        <span class="hero-kanji">未来 · MirAi · futuro</span>
         <div class="hero-tag"><span class="tag tag-cyan">Para pais e professores</span></div>
         <h1 class="hero-title">Seu filho usa IA.<br><span class="glow-cyan">Você sabe como?</span></h1>
-        <p class="hero-sub">Mirai é a plataforma que ajuda pais e professores a acompanhar e desenvolver a maturidade digital de adolescentes no uso de Inteligência Artificial.<br>De forma simples, visual e sem precisar ser especialista.</p>
+        <p class="hero-sub">MirAi é a plataforma que ajuda pais e professores a acompanhar e desenvolver a maturidade digital de adolescentes no uso de Inteligência Artificial.<br>De forma simples, visual e sem precisar ser especialista.</p>
         <div class="hero-actions">
           <button class="btn btn-grad btn-lg" onclick="startOnboarding()">Começar agora — é grátis →</button>
           <button class="btn btn-outline" onclick="scrollTo('#como-funciona')">Ver como funciona</button>
@@ -587,8 +814,8 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     <div class="max-w">
       <div class="stats-inner">
         <div><div class="stat-n glow-cyan">73%</div><div class="stat-l">dos adolescentes aceitam respostas da IA sem verificar</div></div>
-        <div><div class="stat-n" style="background:var(--grad2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">38%</div><div class="stat-l">taxa de alucinação em domínios técnicos</div></div>
-        <div><div class="stat-n" style="color:var(--green)">5 min</div><div class="stat-l">para completar uma auditoria completa no Mirai</div></div>
+        <div><div class="stat-n" style="background:var(--grad2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">38%</div><div class="stat-l">taxa de <span class="tip">alucinação<span class="tip-box"><span class="tip-label">O que é?</span>Quando a IA inventa informações falsas mas apresenta com total confiança — como citar um livro ou lei que não existe.</span></span> em domínios técnicos</div></div>
+        <div><div class="stat-n" style="color:var(--green)">5 min</div><div class="stat-l">para completar uma auditoria completa no MirAi</div></div>
         <div><div class="stat-n" style="color:var(--amber)">ISO</div><div class="stat-l">framework baseado nas normas ISO 9004 e ISO 31000, LGPD e UNESCO.</div></div>
       </div>
     </div>
@@ -604,7 +831,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
       <div class="problem-grid">
         <div class="problem-card pc-red"><div class="problem-icon">🧠</div><div class="problem-title">Alucinações invisíveis</div><div class="problem-desc">A IA inventa dados, datas e referências com total confiança. Adolescentes sem método de verificação aceitam tudo como verdade e ainda entregam nos trabalhos.</div></div>
         <div class="problem-card pc-amber"><div class="problem-icon">✍️</div><div class="problem-title">Autoria que some</div><div class="problem-desc">Pedir a redação pronta para a IA não é aprender, é terceirizar o pensamento!<br>A atrofia cognitiva acontece silenciosamente, sem que ninguém perceba.</div></div>
-        <div class="problem-card pc-violet"><div class="problem-icon">🔒</div><div class="problem-title">Privacidade exposta</div><div class="problem-desc">Adolescentes compartilham nome, escola, endereço e dados de colegas nos prompts sem saber os riscos legais e de segurança que isso representa.</div></div>
+        <div class="problem-card pc-violet"><div class="problem-icon">🔒</div><div class="problem-title">Privacidade exposta</div><div class="problem-desc">Adolescentes compartilham nome, escola, endereço e dados de colegas nos <span class="tip">prompts<span class="tip-box"><span class="tip-label">O que é prompt?</span>A mensagem que você digita para a IA. Tudo que você escreve no chat fica registrado nos servidores da empresa.</span></span> sem saber os riscos legais e de segurança que isso representa.</div></div>
       </div>
     </div>
   </section>
@@ -615,11 +842,11 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     <div class="max-w">
       <div class="section-tag"><span class="tag tag-cyan">O método</span></div>
       <h2 class="section-title">Simples para você!<br><span class="glow-cyan">Rigoroso por dentro.</span></h2>
-      <p class="section-sub">Mirai transforma um método científico baseado em normas ISO e boas práticas da UNESCO em 5 minutos de perguntas intuitivas.</p>
+      <p class="section-sub">MirAi transforma um método científico baseado em normas ISO e boas práticas da UNESCO em 5 minutos de perguntas intuitivas.</p>
       <div class="flow-steps">
         <div class="flow-step"><div class="flow-num">1</div><div class="flow-icon">👤</div><div class="flow-title">Cadastre</div><div class="flow-desc">Nome, idade e vínculo. Em 30 segundos o perfil está pronto.</div><div class="flow-arrow">→</div></div>
         <div class="flow-step"><div class="flow-num">2</div><div class="flow-icon">🔎</div><div class="flow-title">Observe</div><div class="flow-desc">Revise uma sessão recente de uso de IA.<br>Não precisa entender de tecnologia.</div><div class="flow-arrow">→</div></div>
-        <div class="flow-step"><div class="flow-num">3</div><div class="flow-icon">📋</div><div class="flow-title">Responda</div><div class="flow-desc">12 perguntas guiadas com linguagem clara.<br>Mirai faz os cálculos automaticamente.</div><div class="flow-arrow">→</div></div>
+        <div class="flow-step"><div class="flow-num">3</div><div class="flow-icon">📋</div><div class="flow-title">Responda</div><div class="flow-desc">12 perguntas guiadas com linguagem clara.<br>MirAi faz os cálculos automaticamente.</div><div class="flow-arrow">→</div></div>
         <div class="flow-step"><div class="flow-num">4</div><div class="flow-icon">🎯</div><div class="flow-title">Aja</div><div class="flow-desc">Receba um plano de ação personalizado com próximos passos práticos.</div></div>
       </div>
     </div>
@@ -639,7 +866,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         </div>
         <div id="benefit-pais" class="benefit-content active">
           <div>
-            <p style="font-size:16px;color:var(--text2);line-height:1.75">Você não precisa entender de IA para usar o Mirai.<br>Precisa apenas de 5 minutos e QUERER acompanhar o que acontece quando seu filho abre o ChatGPT.</p>
+            <p style="font-size:16px;color:var(--text2);line-height:1.75">Você não precisa entender de IA para usar o MirAi.<br>Precisa apenas de 5 minutos e QUERER acompanhar o que acontece quando seu filho abre o ChatGPT.</p>
             <div class="benefit-list">
               <div class="benefit-item"><div class="benefit-check" style="background:var(--cyan-dim)">🧭</div><div><div class="benefit-text-title">Entenda sem precisar ser técnico</div><div class="benefit-text-desc">Linguagem simples que traduz comportamento em informação útil.</div></div></div>
               <div class="benefit-item"><div class="benefit-check" style="background:var(--green-dim)">📊</div><div><div class="benefit-text-title">Acompanhe a evolução ao longo do tempo</div><div class="benefit-text-desc">Gráfico de evolução do Grau S e nível de maturidade em cada auditoria.</div></div></div>
@@ -650,13 +877,13 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
           <div class="benefit-visual">
             <div style="font-size:48px;margin-bottom:16px">👨‍👩‍👧‍👦</div>
             <div style="font-size:18px;font-weight:700;margin-bottom:8px">A ferramenta que faltava</div>
-            <p style="font-size:14px;color:var(--text2);line-height:1.7">"Eu sabia que a Ana usava IA, mas não sabia como avaliar se estava usando bem.<br>O Mirai me deu as perguntas certas para fazer."</p>
+            <p style="font-size:14px;color:var(--text2);line-height:1.7">"Eu sabia que a Ana usava IA, mas não sabia como avaliar se estava usando bem.<br>O MirAi me deu as perguntas certas para fazer."</p>
             <div style="margin-top:16px"><span class="tag tag-cyan">Mãe de adolescente de 14 anos</span></div>
           </div>
         </div>
         <div id="benefit-professores" class="benefit-content">
           <div>
-            <p style="font-size:16px;color:var(--text2);line-height:1.75">Mirai complementa sua avaliação acadêmica com uma dimensão que nenhuma nota captura: o processo de raciocínio que o aluno usa quando interage com a IA.</p>
+            <p style="font-size:16px;color:var(--text2);line-height:1.75">MirAi complementa sua avaliação acadêmica com uma dimensão que nenhuma nota captura: o processo de raciocínio que o aluno usa quando interage com a IA.</p>
             <div class="benefit-list">
               <div class="benefit-item"><div class="benefit-check" style="background:var(--cyan-dim)">🎓</div><div><div class="benefit-text-title">Avalie processo, não só resultado</div><div class="benefit-text-desc">Distingua o aluno que realmente aprendeu do que decorou a resposta da IA.</div></div></div>
               <div class="benefit-item"><div class="benefit-check" style="background:var(--green-dim)">🤝</div><div><div class="benefit-text-title">Compartilhe com os pais</div><div class="benefit-text-desc">Relatórios exportáveis em PDF e CSV que pais conseguem entender e agir em casa.</div></div></div>
@@ -667,7 +894,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
           <div class="benefit-visual">
             <div style="font-size:48px;margin-bottom:16px">👩‍🏫</div>
             <div style="font-size:18px;font-weight:700;margin-bottom:8px">Além da nota</div>
-            <p style="font-size:14px;color:var(--text2);line-height:1.7">"Com o Mirai consegui mostrar para os pais exatamente por que o João tirou nota baixa mesmo usando IA, ele não verificava nada do que a IA disse."</p>
+            <p style="font-size:14px;color:var(--text2);line-height:1.7">"Com o MirAi consegui mostrar para os pais exatamente por que o João tirou nota baixa mesmo usando IA, ele não verificava nada do que a IA disse."</p>
             <div style="margin-top:16px"><span class="tag tag-violet">Professor de ensino médio</span></div>
           </div>
         </div>
@@ -693,7 +920,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
               <div class="benefit-item"><div class="benefit-check" style="background:var(--amber-dim)">🎯</div><div><div class="benefit-text-title">Funciona onde você já está</div><div class="benefit-text-desc">ChatGPT, Gemini ou Claude — a extensão aparece automaticamente, sem trocar de plataforma.</div></div></div>
             </div>
             <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-              <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
+              <a href="MirAi-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
               <button class="btn btn-outline" onclick="showConteudo()">Ver conteúdo →</button>
             </div>
           </div>
@@ -720,7 +947,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
       <h2 class="section-title">Pessoas reais.<br><span class="glow-cyan">Resultados reais.</span></h2>
       <p class="section-sub" style="color:var(--muted);font-size:13px;margin-top:4px">* Depoimentos ilustrativos para demonstração do produto</p>
       <div class="depo-grid">
-        <div class="depo-card"><div class="depo-stars">★★★★★</div><div class="depo-text">"Nunca pensei que conseguiria entender se minha filha estava usando a IA de forma saudável.<br>O Mirai me fez perceber que ela estava aceitando tudo sem verificar e me deu um roteiro de conversa."</div><div class="depo-author"><div class="depo-avatar" style="background:var(--cyan-dim);color:var(--cyan)">M</div><div><div class="depo-name">Mariana S.</div><div class="depo-role">Mãe, filha de 13 anos · São Paulo</div></div></div></div>
+        <div class="depo-card"><div class="depo-stars">★★★★★</div><div class="depo-text">"Nunca pensei que conseguiria entender se minha filha estava usando a IA de forma saudável.<br>O MirAi me fez perceber que ela estava aceitando tudo sem verificar e me deu um roteiro de conversa."</div><div class="depo-author"><div class="depo-avatar" style="background:var(--cyan-dim);color:var(--cyan)">M</div><div><div class="depo-name">Mariana S.</div><div class="depo-role">Mãe, filha de 13 anos · São Paulo</div></div></div></div>
         <div class="depo-card"><div class="depo-stars">★★★★★</div><div class="depo-text">"Usei com toda a minha turma do 2º ano. Em um mês consegui identificar os alunos que estavam simplesmente copiando a IA dos que realmente interagiam criticamente."</div><div class="depo-author"><div class="depo-avatar" style="background:var(--violet-dim);color:var(--violet)">R</div><div><div class="depo-name">Prof. Rodrigo A.</div><div class="depo-role">Professor de História · Rio de Janeiro</div></div></div></div>
         <div class="depo-card"><div class="depo-stars">★★★★★</div><div class="depo-text">"Meu filho de 16 anos ficou curioso com o relatório dele.<br>Pela primeira vez ele quis entender por que estava no Nível 3 e não no 4. Isso gerou um desafio incrível em como usar a IA de maneira inteligente."</div><div class="depo-author"><div class="depo-avatar" style="background:var(--green-dim);color:var(--green)">F</div><div><div class="depo-name">Fernando L.</div><div class="depo-role">Pai, filho de 16 anos · Belo Horizonte</div></div></div></div>
       </div>
@@ -751,7 +978,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
   </div>
 
   <div class="footer">
-    <div class="footer-left">未来 Mirai · Maturidade Digital · Framework baseado em ISO 9004 × ISO 31000</div>
+    <div class="footer-left">未来 MirAi · Maturidade Digital · Framework baseado em ISO 9004 × ISO 31000</div>
     <div class="footer-right">v1.0 MVP · Dados salvos localmente</div>
   </div>
 </div>
@@ -759,7 +986,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 <!-- ══════════════ SCREEN: ONBOARDING ══════════════ -->
 <div id="screen-onboard" class="screen">
   <div class="topbar">
-    <div class="logo" onclick="showLanding()"><span class="logo-kanji">未来</span><span class="logo-text">Mirai</span></div>
+    <div class="logo" onclick="showLanding()"><span class="logo-kanji">未来</span><span class="logo-text">MirAi</span></div>
     <button class="btn btn-ghost btn-sm" onclick="showLanding()">← Voltar</button>
   </div>
   <div class="onboard-wrap">
@@ -770,7 +997,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 <!-- ══════════════ SCREEN: APP ══════════════ -->
 <div id="screen-app" class="screen">
   <div class="topbar">
-    <div class="logo" onclick="showLanding()"><span class="logo-kanji">未来</span><span class="logo-text">Mirai</span></div>
+    <div class="logo" onclick="showLanding()"><span class="logo-kanji">未来</span><span class="logo-text">MirAi</span></div>
     <div style="display:flex;gap:10px;align-items:center">
       <span id="app-user-label" style="font-size:13px;color:var(--muted)"></span>
       <button class="btn btn-ghost btn-sm" onclick="showModal('modal-backup')" title="Backup de dados">💾</button>
@@ -794,7 +1021,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 <!-- ══════════════ SCREEN: AUDIT ══════════════ -->
 <div id="screen-audit" class="screen">
   <div class="topbar">
-    <div class="logo"><span class="logo-kanji">未来</span><span class="logo-text">Mirai</span></div>
+    <div class="logo"><span class="logo-kanji">未来</span><span class="logo-text">MirAi</span></div>
     <div style="display:flex;gap:10px;align-items:center">
       <span id="audit-name" style="font-size:13px;font-weight:600;color:var(--text)"></span>
       <button class="btn btn-ghost btn-sm" onclick="showModal('modal-cancel-audit')">Cancelar</button>
@@ -820,7 +1047,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 <!-- ══════════════ SCREEN: RESULT ══════════════ -->
 <div id="screen-result" class="screen">
   <div class="topbar">
-    <div class="logo"><span class="logo-kanji">未来</span><span class="logo-text">Mirai</span></div>
+    <div class="logo"><span class="logo-kanji">未来</span><span class="logo-text">MirAi</span></div>
     <div style="display:flex;gap:10px">
       <button class="btn btn-ghost btn-sm" onclick="goToApp()">← Painel</button>
       <button class="btn btn-grad btn-sm" onclick="newAudit()">Nova auditoria</button>
@@ -858,7 +1085,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
   <nav class="nav">
     <div class="logo" onclick="showLanding()">
       <span class="logo-kanji">未来</span>
-      <span class="logo-text">Mirai</span>
+      <span class="logo-text">MirAi</span>
     </div>
     <div class="nav-links">
       <a href="#" onclick="showLanding();return false;">Início</a>
@@ -876,9 +1103,9 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
       <div class="slide-up">
         <div style="margin-bottom:20px"><span class="tag tag-violet">Extensão para Chrome</span></div>
         <h1 class="hero-title">Uma pergunta.<br><span class="glow-violet">Depois de cada IA.</span></h1>
-        <p class="hero-sub">A extensão Mirai aparece automaticamente quando você termina de usar o ChatGPT, Gemini ou Claude. Uma pergunta curta. Só você vê a resposta. Nenhum dado sai do seu navegador.</p>
+        <p class="hero-sub">A extensão MirAi aparece automaticamente quando você termina de usar o ChatGPT, Gemini ou Claude. Uma pergunta curta. Só você vê a resposta. Nenhum dado sai do seu navegador.</p>
         <div class="hero-actions">
-          <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
+          <a href="MirAi-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
           <button class="btn btn-outline" onclick="document.getElementById('ext-install').scrollIntoView({behavior:'smooth'})">Como instalar →</button>
         </div>
         <div style="margin-top:24px;font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap">
@@ -905,7 +1132,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
               <div class="ext-card-body">
                 <div class="ext-card-header">
                   <span class="ext-card-logo">未来</span>
-                  <span style="font-size:13px;font-weight:700;color:rgba(240,244,255,.4)">Mirai</span>
+                  <span style="font-size:13px;font-weight:700;color:rgba(240,244,255,.4)">MirAi</span>
                   <span style="margin-left:auto;font-size:13px;color:rgba(255,255,255,.2)">✕</span>
                 </div>
                 <div class="ext-card-q">Ela acertou desta vez?</div>
@@ -956,7 +1183,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         <div class="cta-title" style="font-size:28px;font-weight:900;margin-bottom:12px">Começa quando você quiser.</div>
         <div style="font-size:15px;color:var(--text2);margin-bottom:28px;line-height:1.7">Gratuito. Sem conta. Sem coleta de dados.<br>Só você e as suas perguntas.</div>
         <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-          <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
+          <a href="MirAi-extension-mvp.zip" download class="btn btn-grad btn-lg">⬇ Baixar extensão grátis</a>
           <button class="btn btn-outline" onclick="showConteudo()">Ver conteúdo →</button>
         </div>
       </div>
@@ -964,7 +1191,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
   </section>
 
   <div class="footer">
-    <div class="footer-left">未来 Mirai · Extensão Chrome MVP v0.1</div>
+    <div class="footer-left">未来 MirAi · Extensão Chrome MVP v0.1</div>
     <div class="footer-right">Dados salvos localmente · Sem servidor</div>
   </div>
 </div>
@@ -974,14 +1201,14 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
   <nav class="nav">
     <div class="logo" onclick="showLanding()">
       <span class="logo-kanji">未来</span>
-      <span class="logo-text">Mirai</span>
+      <span class="logo-text">MirAi</span>
     </div>
     <div class="nav-links">
       <a href="#" onclick="showLanding();return false;">Início</a>
       <a href="#" onclick="showScreen('screen-extensao');return false;" style="color:var(--violet)">Extensão</a>
     </div>
     <div class="nav-cta">
-      <a href="mirai-extension-mvp.zip" download class="btn btn-grad btn-sm">⬇ Baixar extensão</a>
+      <a href="MirAi-extension-mvp.zip" download class="btn btn-grad btn-sm">⬇ Baixar extensão</a>
     </div>
   </nav>
 
@@ -1107,8 +1334,8 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
   </div>
 
   <div class="footer">
-    <div class="footer-left">未来 Mirai · Conteúdo para adolescentes</div>
-    <div class="footer-right"><a href="mirai-extension-mvp.zip" download style="color:var(--cyan);text-decoration:none">⬇ baixar extensão</a></div>
+    <div class="footer-left">未来 MirAi · Conteúdo para adolescentes</div>
+    <div class="footer-right"><a href="MirAi-extension-mvp.zip" download style="color:var(--cyan);text-decoration:none">⬇ baixar extensão</a></div>
   </div>
 </div>
 
@@ -1118,7 +1345,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 <div class="modal-overlay" id="modal-entrar">
   <div class="modal" style="max-width:420px;text-align:center">
     <div style="font-family:'Noto Serif JP',serif;font-size:36px;background:var(--grad1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px">未来</div>
-    <div class="modal-title" style="font-size:22px">Bem-vindo ao Mirai</div>
+    <div class="modal-title" style="font-size:22px">Bem-vindo ao MirAi</div>
     <div class="modal-body" style="margin-bottom:20px">Como você quer continuar?</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
       <button class="btn btn-grad btn-full btn-lg" onclick="closeModal('modal-entrar');startOnboarding()">
@@ -1145,7 +1372,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     <div style="font-size:36px;margin-bottom:12px">🔒</div>
     <div class="modal-title">Antes de continuar</div>
     <div class="modal-body">
-      <p style="margin-bottom:12px">O Mirai vai pedir um <strong>apelido ou nome fictício</strong> para identificar o adolescente — <strong>nunca use o nome real</strong>.</p>
+      <p style="margin-bottom:12px">O MirAi vai pedir um <strong>apelido ou nome fictício</strong> para identificar o adolescente — <strong>nunca use o nome real</strong>.</p>
       <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.7">
         <div style="font-weight:700;color:var(--amber);margin-bottom:6px">⚠ Por que isso importa?</div>
         Todos os dados ficam <strong>apenas no seu dispositivo</strong> (sem servidor). Mas como medida de privacidade extra, recomendamos não inserir dados que identifiquem diretamente o menor — seguindo o espírito do <strong>Art. 14 da LGPD</strong>, que protege dados de crianças e adolescentes.
@@ -1211,6 +1438,41 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
     </div>
   </div>
 </div>
+<!-- ══════════════ SCREEN: GLOSSÁRIO ══════════════ -->
+<div id="screen-glossario" class="screen">
+  <nav class="nav">
+    <div class="logo" onclick="showLanding()">
+      <span class="logo-kanji">未来</span>
+      <span class="logo-text">MirAi</span>
+    </div>
+    <div class="nav-links">
+      <a href="#" onclick="showLanding();return false;">Início</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn btn-ghost btn-sm" onclick="showLanding()">← Voltar</button>
+    </div>
+  </nav>
+
+  <div style="padding-top:80px;padding-bottom:80px;background:var(--bg);min-height:100vh">
+    <div class="max-w">
+      <div class="section-tag"><span class="tag tag-violet">📖 Referência</span></div>
+      <h2 class="section-title">Glossário <span class="glow-cyan">MirAi</span></h2>
+      <p class="section-sub">Todos os termos usados na plataforma, explicados de forma clara.</p>
+      <div class="gloss-search-wrap" style="margin-top:20px">
+        <input class="gloss-search-input" id="glossSearch" placeholder="Buscar termo..." oninput="filterGloss(this.value)">
+      </div>
+      <div class="gloss-filter">
+        <button class="gloss-f-btn active" onclick="setGlosscat('todos',this)">Todos</button>
+        <button class="gloss-f-btn" onclick="setGlosscat('conceito',this)">Conceito</button>
+        <button class="gloss-f-btn" onclick="setGlosscat('nivel',this)">Níveis</button>
+        <button class="gloss-f-btn" onclick="setGlosscat('pedagogia',this)">Pedagogia</button>
+        <button class="gloss-f-btn" onclick="setGlosscat('tecnico',this)">Técnico</button>
+        <button class="gloss-f-btn" onclick="setGlosscat('legal',this)">Legal</button>
+      </div>
+      <div class="gloss-grid" id="glossGrid"></div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ══════════════════════════════════════
@@ -1218,18 +1480,18 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
 // ══════════════════════════════════════
 
 const FAQS = [
-  {q:"O que é maturidade digital?", a:"Maturidade digital é a capacidade de um adolescente de usar ferramentas de IA de forma crítica, ética e segura, planejando suas interações, verificando as informações recebidas e mantendo sua autoria.<br>O Mirai mede essa capacidade em 5 níveis, do uso caótico à autonomia plena."},
-  {q:"Preciso entender de tecnologia para usar o Mirai?", a:"Não.<br>O Mirai foi projetado para pais e professores sem formação técnica.<br>Todas as perguntas da auditoria usam linguagem do dia a dia.<br>Você não vai ver fórmulas ou termos técnicos durante o uso, só no relatório, se quiser se aprofundar."},
-  {q:"O que é o 'Grau de Segurança S'?", a:"O Grau S é o resultado central do Mirai. Ele combina a maturidade do adolescente (M) com o risco da ferramenta no contexto avaliado (R): S = M − R. Um S positivo alto indica que o adolescente tem capacidade suficiente para operar com segurança naquele domínio. Um S negativo indica que o risco supera a capacidade atual — e que supervisão é necessária."},
+  {q:"O que é maturidade digital?", a:"Maturidade digital é a capacidade de um adolescente de usar ferramentas de IA de forma crítica, ética e segura, planejando suas interações, verificando as informações recebidas e mantendo sua autoria.<br>O MirAi mede essa capacidade em 5 níveis, do uso caótico à autonomia plena."},
+  {q:"Preciso entender de tecnologia para usar o MirAi?", a:"Não.<br>O MirAi foi projetado para pais e professores sem formação técnica.<br>Todas as perguntas da auditoria usam linguagem do dia a dia.<br>Você não vai ver fórmulas ou termos técnicos durante o uso, só no relatório, se quiser se aprofundar."},
+  {q:"O que é o 'Grau de Segurança S'?", a:"O Grau S é o resultado central do MirAi. Ele combina a maturidade do adolescente (M) com o risco da ferramenta no contexto avaliado (R): S = M − R. Um S positivo alto indica que o adolescente tem capacidade suficiente para operar com segurança naquele domínio. Um S negativo indica que o risco supera a capacidade atual — e que supervisão é necessária."},
   {q:"Meus dados ficam onde?", a:"Todos os dados ficam salvos localmente no seu navegador (localStorage). Nada é enviado para servidores. Isso significa que se você trocar de dispositivo ou limpar o cache do navegador, os dados são perdidos. Em breve: exportação de dados para backup."},
-  {q:"Com que frequência devo fazer a auditoria?", a:"Depende do nível atual: Níveis 1–2 exigem auditoria mensal. Nível 3–4, trimestral. Nível 5, semestral. O Mirai informa o ciclo recomendado em cada relatório."},
-  {q:"O que é o Nível de Maturidade e como ele é calculado?", a:"O Mirai avalia três dimensões: Técnica (qualidade do planejamento), Ética (privacidade e autoria) e Crítica (verificação de informações). Cada dimensão recebe uma nota de 0 a 100%, e o peso de cada uma varia por faixa etária — baseado nas teorias de desenvolvimento cognitivo de Piaget e Vygotsky. A nota final determina o nível de 1 (Caótico) a 5 (Otimizado)."},
-  {q:"O que fazer se meu filho se recusar a deixar eu ver as sessões?", a:"Resistência é natural. Recomendamos começar pela conversa, não pela auditoria: mostre o relatório de outra pessoa como exemplo, explique que o objetivo não é punir mas acompanhar. O Mirai fornece sugestões de abordagem em cada relatório para facilitar esse diálogo."},
+  {q:"Com que frequência devo fazer a auditoria?", a:"Depende do nível atual: Níveis 1–2 exigem auditoria mensal. Nível 3–4, trimestral. Nível 5, semestral. O MirAi informa o ciclo recomendado em cada relatório."},
+  {q:"O que é o Nível de Maturidade e como ele é calculado?", a:"O MirAi avalia três dimensões: Técnica (qualidade do planejamento), Ética (privacidade e autoria) e Crítica (verificação de informações). Cada dimensão recebe uma nota de 0 a 100%, e o peso de cada uma varia por faixa etária — baseado nas teorias de desenvolvimento cognitivo de Piaget e Vygotsky. A nota final determina o nível de 1 (Caótico) a 5 (Otimizado)."},
+  {q:"O que fazer se meu filho se recusar a deixar eu ver as sessões?", a:"Resistência é natural. Recomendamos começar pela conversa, não pela auditoria: mostre o relatório de outra pessoa como exemplo, explique que o objetivo não é punir mas acompanhar. O MirAi fornece sugestões de abordagem em cada relatório para facilitar esse diálogo."},
 ];
 
 const ONBOARD_STEPS = [
   {
-    label:"Passo 1 de 4 — Quem é você?", title:"Bem-vindo(a) ao Mirai 未来",
+    label:"Passo 1 de 4 — Quem é você?", title:"Bem-vindo(a) ao MirAi 未来",
     desc:"Para personalizar sua experiência, nos conte como você se relaciona com o adolescente que vai acompanhar.",
     options:[
       {val:'pai_mae',    main:"Sou pai ou mãe",       sub:"Quero acompanhar meu filho(a) em casa"},
@@ -1385,8 +1647,8 @@ const VINCULOS = {pai_mae:'Família',professor:'Educador',coordenador:'Coordena�
 
 let ST = {adolescentes:[],auditorName:'',currentId:null,audit:{ans:{},q:0},deleteTarget:null,onboard:{}};
 
-function save(){localStorage.setItem('mirai_v1',JSON.stringify(ST));}
-function load(){const d=localStorage.getItem('mirai_v1');if(d)ST=JSON.parse(d);}
+function save(){localStorage.setItem('MirAi_v1',JSON.stringify(ST));}
+function load(){const d=localStorage.getItem('MirAi_v1');if(d)ST=JSON.parse(d);}
 
 // ══════════════════════════════════════
 // SCREENS
@@ -1399,7 +1661,10 @@ function showScreen(id){
 }
 function showLanding(){showScreen('screen-landing');}
 function goToApp(){renderApp();showScreen('screen-app');}
-
+function showGlossario(){
+  showScreen('screen-glossario');
+  renderGloss();
+}
 // ══════════════════════════════════════
 // LANDING
 // ══════════════════════════════════════
@@ -1568,7 +1833,7 @@ function exportData(){
   const a=document.createElement('a');
   a.href=url;
   const d=new Date().toISOString().slice(0,10);
-  a.download=`mirai_backup_${d}.json`;
+  a.download=`MirAi_backup_${d}.json`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -2114,7 +2379,7 @@ function exportCSV(adolId){
   const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href=url; a.download=`mirai_${adol.nome.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.href=url; a.download=`MirAi_${adol.nome.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.csv`;
   a.click(); URL.revokeObjectURL(url);
 }
 
@@ -2134,7 +2399,7 @@ function exportPDF(adolId){
     </tr>`).join('');
 
   const html=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-  <title>Mirai — ${adol.nome}</title>
+  <title>MirAi — ${adol.nome}</title>
   <style>
     body{font-family:'Segoe UI',sans-serif;background:#fff;color:#111;padding:40px;max-width:800px;margin:0 auto;font-size:13px;}
     h1{font-size:24px;margin:0 0 4px;} h2{font-size:16px;color:#555;font-weight:400;margin:0 0 32px;}
@@ -2147,7 +2412,7 @@ function exportPDF(adolId){
     .footer{margin-top:40px;font-size:11px;color:#aaa;text-align:center;}
   </style></head><body>
   <div class="header">
-    <div><div class="logo">未来 Mirai</div><div style="font-size:12px;color:#999;margin-top:2px">Relatório de Maturidade Digital</div></div>
+    <div><div class="logo">未来 MirAi</div><div style="font-size:12px;color:#999;margin-top:2px">Relatório de Maturidade Digital</div></div>
     <div style="text-align:right"><div style="font-size:20px;font-weight:800">${adol.nome}</div><div style="font-size:12px;color:#777">${adol.idade} anos · ${VINCULOS[adol.vinculo]||'—'}</div><div class="badge" style="margin-top:6px">N${last?last.nivel:adol.nivel} — ${li.label}</div></div>
   </div>
   ${last?`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px">
@@ -2159,7 +2424,7 @@ function exportPDF(adolId){
   <h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;margin:0 0 8px">Histórico de auditorias</h3>
   <table><thead><tr><th>Data</th><th>Nível</th><th>S</th><th>Maturidade</th><th>Tec / Éti / Crí</th></tr></thead>
   <tbody>${rows}</tbody></table>
-  <div class="footer">Gerado pelo Mirai 未来 em ${new Date().toLocaleDateString('pt-BR')} · Dados armazenados localmente</div>
+  <div class="footer">Gerado pelo MirAi 未来 em ${new Date().toLocaleDateString('pt-BR')} · Dados armazenados localmente</div>
   </body></html>`;
 
   const blob = new Blob([html],{type:'text/html'});
@@ -2376,11 +2641,11 @@ function abrirArtigo(id) {
       <button class="btn btn-outline" onclick="abrirArtigo('${proxId}')">Próximo: ${prox.tag} →</button>
     </div>
     <div style="margin-top:48px;padding:32px;background:${a.corBg};border:1px solid ${a.cor}33;border-radius:20px;text-align:center">
-      <div style="font-size:13px;font-weight:600;color:${a.cor};margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase">Extensão Mirai</div>
+      <div style="font-size:13px;font-weight:600;color:${a.cor};margin-bottom:8px;letter-spacing:.06em;text-transform:uppercase">Extensão MirAi</div>
       <div style="font-size:18px;font-weight:800;margin-bottom:8px">Uma pergunta depois de cada sessão.</div>
       <div style="font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.6">Gratuita. Funciona no ChatGPT, Gemini e Claude.<br>Só você vê as respostas.</div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <a href="mirai-extension-mvp.zip" download class="btn btn-grad">⬇ Baixar extensão</a>
+        <a href="MirAi-extension-mvp.zip" download class="btn btn-grad">⬇ Baixar extensão</a>
         <button class="btn btn-ghost" onclick="showScreen('screen-extensao')">Como instalar →</button>
       </div>
     </div>
@@ -2399,6 +2664,109 @@ function fecharArtigo() {
 // INIT
 // ══════════════════════════════════════
 load();
+</script>
+<script>
+// ══ GLOSSÁRIO ══════════════════════════════════════
+const GLOSSARIO = [
+  {termo:'Maturidade Digital',cat:'conceito',cor:'var(--cyan)',
+   def:'Capacidade de usar ferramentas digitais — especialmente IA — com autonomia, pensamento crítico e responsabilidade ética.',
+   fonte:'Framework MirAi'},
+  {termo:'Grau S (Score S)',cat:'conceito',cor:'var(--violet)',
+   def:'Índice calculado como S = M − R, onde M é a maturidade medida nas 3 dimensões e R é o risco. Varia de −100 a +100.',
+   fonte:'Metodologia MirAi'},
+  {termo:'Alucinação de IA',cat:'tecnico',cor:'var(--red)',
+   def:'Quando um modelo de linguagem gera informações falsas com aparente confiança, sem base em dados reais.',
+   fonte:'Bender et al., 2021'},
+  {termo:'Prompt',cat:'tecnico',cor:'var(--cyan)',
+   def:'Instrução enviada a um modelo de IA para orientar sua resposta. A qualidade do prompt influencia diretamente o resultado.',
+   fonte:'OpenAI, 2023'},
+  {termo:'Scaffolding',cat:'pedagogia',cor:'var(--amber)',
+   def:'Estratégia pedagógica em que o educador oferece suporte temporário e gradualmente reduzido conforme o aprendiz ganha autonomia.',
+   fonte:'Wood, Bruner & Ross, 1976'},
+  {termo:'ZDP — Zona de Desenvolvimento Proximal',cat:'pedagogia',cor:'var(--green)',
+   def:'Distância entre o que o aprendiz consegue fazer sozinho e o que consegue com orientação. Conceito central de Vygotsky.',
+   fonte:'Vygotsky, 1978'},
+  {termo:'PDCA',cat:'conceito',cor:'var(--violet)',
+   def:'Ciclo de melhoria contínua: Plan (Planejar), Do (Executar), Check (Verificar), Act (Ajustar). Estrutura base do MirAi.',
+   fonte:'Deming, 1950'},
+  {termo:'N1 — Inicial',cat:'nivel',cor:'var(--red)',
+   def:'Nível 1. O estudante usa IA de forma passiva e sem crítica, aceitando respostas sem verificação.',
+   fonte:'Framework MirAi'},
+  {termo:'N2 — Em Desenvolvimento',cat:'nivel',cor:'var(--amber)',
+   def:'Nível 2. Começa a questionar saídas da IA e busca verificação, mas ainda depende muito da ferramenta.',
+   fonte:'Framework MirAi'},
+  {termo:'N3 — Intermediário',cat:'nivel',cor:'var(--cyan)',
+   def:'Nível 3. Uso equilibrado: contextualiza prompts, verifica informações e demonstra autoria própria.',
+   fonte:'Framework MirAi'},
+  {termo:'N4 — Avançado',cat:'nivel',cor:'var(--green)',
+   def:'Nível 4. Domina prompting, produz com qualidade autoral consistente e guia colegas no uso ético.',
+   fonte:'Framework MirAi'},
+  {termo:'N5 — Referência',cat:'nivel',cor:'var(--violet)',
+   def:'Nível 5. Liderança em IA: contribui com práticas, cria materiais e influencia positivamente a cultura digital.',
+   fonte:'Framework MirAi'},
+  {termo:'Atrofia Cognitiva',cat:'conceito',cor:'var(--red)',
+   def:'Redução progressiva de habilidades cognitivas (escrita, raciocínio, memória) causada pelo uso excessivo e acrítico de IA.',
+   fonte:'Gerber et al., 2024'},
+  {termo:'Dimensão Técnica',cat:'conceito',cor:'var(--cyan)',
+   def:'Uma das 3 dimensões do Grau S. Avalia competências operacionais: saber usar, configurar e escolher ferramentas de IA.',
+   fonte:'Framework MirAi'},
+  {termo:'Dimensão Ética',cat:'conceito',cor:'var(--pink)',
+   def:'Uma das 3 dimensões do Grau S. Avalia consciência sobre vieses, privacidade, autoria e responsabilidade.',
+   fonte:'Framework MirAi'},
+  {termo:'Dimensão Crítica',cat:'conceito',cor:'var(--violet)',
+   def:'Uma das 3 dimensões do Grau S. Avalia capacidade de questionar, verificar e contextualizar saídas da IA.',
+   fonte:'Framework MirAi'},
+  {termo:'LGPD Art. 14',cat:'legal',cor:'var(--green)',
+   def:'Artigo da Lei 13.709/2018 que trata do tratamento de dados de crianças e adolescentes, exigindo consentimento parental.',
+   fonte:'Lei 13.709/2018'},
+  {termo:'LLM — Large Language Model',cat:'tecnico',cor:'var(--cyan)',
+   def:'Modelo de linguagem de grande escala treinado em vastos conjuntos de texto. Base da maioria dos chatbots de IA (GPT, Claude, Gemini).',
+   fonte:'Vaswani et al., 2017'},
+];
+
+let _glossCat='todos', _glossQ='';
+
+function renderGloss(){
+  const grid=document.getElementById('glossGrid');
+  if(!grid) return;
+  const f=GLOSSARIO.filter(t=>{
+    const mc=_glossCat==='todos'||t.cat===_glossCat;
+    const mq=!_glossQ||t.termo.toLowerCase().includes(_glossQ)||t.def.toLowerCase().includes(_glossQ);
+    return mc&&mq;
+  });
+  if(!f.length){grid.innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0;">Nenhum termo encontrado.</p>';return;}
+  grid.innerHTML=f.map(t=>`
+    <div class="gloss-card" style="border-top-color:${t.cor}">
+      <div class="gloss-card-term"><span style="width:8px;height:8px;border-radius:50%;background:${t.cor};display:inline-block;flex-shrink:0"></span>${t.termo}</div>
+      <div class="gloss-card-def">${t.def}</div>
+      <div class="gloss-card-source">fonte: ${t.fonte}</div>
+    </div>`).join('');
+}
+function filterGloss(q){_glossQ=q.toLowerCase();renderGloss();}
+function setGlosscat(cat,btn){
+  _glossCat=cat;
+  document.querySelectorAll('.gloss-f-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  renderGloss();
+}
+document.addEventListener('DOMContentLoaded',renderGloss);
+
+// ══ THEME SWITCHER ═════════════════════════════════
+const THEMES = { dark:'Escuro', light:'Claro', DVC:'DVC' };
+let _theme = localStorage.getItem('MirAi-theme') || 'dark';
+function setTheme(t) {
+  _theme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  document.body.style.background = 'var(--bg)';
+  localStorage.setItem('MirAi-theme', t);
+  const lbl = document.getElementById('theme-label');
+  if(lbl) lbl.textContent = THEMES[t];
+  document.querySelectorAll('.theme-opt').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('opt-' + t);
+  if(btn) btn.classList.add('active');
+  document.getElementById('theme-panel')?.classList.remove('open');
+}
+setTheme(_theme);
 </script>
 </body>
 </html>
