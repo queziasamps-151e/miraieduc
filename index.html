@@ -784,7 +784,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         <p class="hero-sub">MirAi é a plataforma que ajuda pais e professores a acompanhar e desenvolver a maturidade digital de adolescentes no uso de Inteligência Artificial.<br>De forma simples, visual e sem precisar ser especialista.</p>
         <div class="hero-actions">
           <button class="btn btn-grad btn-lg" onclick="startOnboarding()">Começar agora — é grátis →</button>
-          <button class="btn btn-outline" onclick="scrollTo('#como-funciona')">Ver como funciona</button>
+          <button class="btn btn-outline" onclick="scrollToEl('#como-funciona')">Ver como funciona</button>
         </div>
       </div>
       <div class="hero-visual">
@@ -1233,7 +1233,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         <div class="tema-card tc-alucinacao" onclick="abrirArtigo('alucinacao')">
           <div class="tema-icon">🧠</div>
           <div class="tema-title">A IA inventou.<br>E parecia verdade.</div>
-          <div class="tema-desc">A IA não mente com intenção. Ela simplesmente não sabe quando está errada. Entender isso muda tudo.</div>
+          <div class="tema-desc">A IA não mente com intenção.<br>Ela simplesmente não sabe quando está errada.<br>E entender isso muda tudo.</div>
           <div class="mini-chat">
             <div class="mc-msg mc-user">
               <div class="mc-bubble" style="background:rgba(255,255,255,.06)">Quem escreveu "A Revolução dos Dados" em 2021?</div>
@@ -1242,7 +1242,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
               <div>
                 <div class="mc-label" style="color:rgba(168,85,247,.6)">IA</div>
                 <div class="mc-bubble" style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.15)">O livro foi escrito por <strong style="color:#F87171">Carlos Mendonça</strong>, publicado pela Editora Acadêmica em março de 2021. Aborda os impactos da IA na sociedade...</div>
-                <div class="mc-warn" style="background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.4);color:#F87171">⚠ Este livro não existe. A IA inventou tudo.</div>
+                <div class="mc-warn" style="background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.4);color:#F87171">⚠ Este livro não existe. A IA inventou tudo.<br>Eai, como saber se é verdade?</div>
               </div>
             </div>
           </div>
@@ -1255,8 +1255,8 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         <!-- AUTORIA -->
         <div class="tema-card tc-autoria" onclick="abrirArtigo('autoria')">
           <div class="tema-icon">✍️</div>
-          <div class="tema-title">Quem escreveu —<br>você ou ela?</div>
-          <div class="tema-desc">Usar IA para pensar junto é diferente de pedir o texto pronto. A diferença parece pequena. No longo prazo, é enorme.</div>
+          <div class="tema-title">Quem escreveu, <br>você ou a IA?</div>
+          <div class="tema-desc">Usar IA para pensar junto é diferente de pedir o texto pronto.<br>A diferença parece pequena.<br>No longo prazo, é enorme.</div>
           <div class="mini-chat">
             <div class="mc-msg mc-user">
               <div class="mc-bubble" style="background:rgba(255,255,255,.06)">Escreve minha redação sobre redes sociais, 30 linhas, entrega amanhã</div>
@@ -1279,7 +1279,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         <div class="tema-card tc-privacidade" onclick="abrirArtigo('privacidade')">
           <div class="tema-icon">🔒</div>
           <div class="tema-title">O que você já<br>contou para a IA?</div>
-          <div class="tema-desc">Cada prompt é um dado. Nome, escola, endereço, segredos de amigos — tudo que você digita fica registrado em algum lugar.</div>
+          <div class="tema-desc">Cada prompt é um dado.<br>Nome, escola, endereço, segredos de amigos...<br>Tudo que você digita fica registrado em algum lugar.</div>
           <div class="mini-chat">
             <div class="mc-msg mc-user">
               <div class="mc-bubble" style="background:rgba(255,255,255,.06)">Me ajuda a mandar mensagem pra <strong style="color:#F87171">João Silva da Escola Pitágoras</strong> dizendo que não gosto dele</div>
@@ -1301,7 +1301,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
         <!-- PROCESSO -->
         <div class="tema-card tc-processo" onclick="abrirArtigo('processo')">
           <div class="tema-icon">🧭</div>
-          <div class="tema-title">Você foi buscar —<br>ou foi levado?</div>
+          <div class="tema-title">Você foi buscar,<br>ou foi levado?</div>
           <div class="tema-desc">Tem uma diferença entre usar a IA com intenção e abrir o chat por impulso. Reconhecer isso é o começo de usar bem.</div>
           <div class="mini-chat">
             <div class="mc-msg mc-user">
@@ -1316,7 +1316,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font
             <div class="mc-msg mc-user">
               <div class="mc-bubble" style="background:rgba(255,255,255,.06)">não sei... me fala uma coisa interessante</div>
             </div>
-            <div class="mc-warn" style="background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.35);color:#FBBF24;margin-top:2px">↳ Você abriu sem saber o que queria. A IA virou o piloto.</div>
+            <div class="mc-warn" style="background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.35);color:#FBBF24;margin-top:2px">↳ Você abriu sem saber o que queria. A IA quem decidiu por você.</div>
           </div>
           <div class="tema-tags">
             <span class="tag tag-amber">Processo</span>
@@ -1669,7 +1669,7 @@ function showGlossario(){
 // LANDING
 // ══════════════════════════════════════
 
-function scrollTo(sel){document.querySelector(sel)?.scrollIntoView({behavior:'smooth'});}
+function scrollToEl(sel){document.querySelector(sel)?.scrollIntoView({behavior:'smooth'});}
 
 function switchBenefit(id,btn){
   // Escopa ao container pai para não afetar outros .benefit-content no documento
